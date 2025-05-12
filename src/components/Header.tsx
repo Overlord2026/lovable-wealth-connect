@@ -14,9 +14,10 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   
   const navigation = [
-    { name: "Home", href: "#" },
+    { name: "Home", href: "/" },
     { name: "Solutions", href: "#solutions" },
     { name: "Advisors", href: "#advisors" },
+    { name: "Loans", href: "/loans" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
   ];
