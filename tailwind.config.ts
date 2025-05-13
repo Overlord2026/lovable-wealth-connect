@@ -53,31 +53,43 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				wealth: {
-					50: '#f0f4fa',
-					100: '#dce6f3',
-					200: '#c0d2e9',
-					300: '#96b4da',
-					400: '#6590c7',
-					500: '#4372b3',
-					600: '#335c98',
-					700: '#2a4a7b',
-					800: '#274067',
-					900: '#243857',
-					950: '#0f1829',
+				// New color palette based on Masttro Contro
+				navy: {
+					50: '#e6edf2',
+					100: '#ccdbe6',
+					200: '#99b7cc',
+					300: '#6693b3',
+					400: '#336f99',
+					500: '#004b80',
+					600: '#003c66',
+					700: '#002d4d',
+					800: '#001e33',
+					900: '#000f1a',
+					950: '#0A1F33',
 				},
-				gold: {
-					50: '#fbf8eb',
-					100: '#f7efd0',
-					200: '#efdc9e',
-					300: '#e6c462',
-					400: '#e0b240',
-					500: '#d39924',
-					600: '#bc7c1d',
-					700: '#9c5b1b',
-					800: '#82491e',
-					900: '#703d1d',
-					950: '#411e0e',
+				teal: {
+					50: '#e6f8fb',
+					100: '#ccf1f7',
+					200: '#99e4ef',
+					300: '#66d6e7',
+					400: '#33c9df',
+					500: '#17A2B8',
+					600: '#128293',
+					700: '#0e616e',
+					800: '#09414a',
+					900: '#052025',
+				},
+				turquoise: {
+					50: '#ecfbfa',
+					100: '#d9f7f5',
+					200: '#b3efec',
+					300: '#8ee7e2',
+					400: '#68dfd9',
+					500: '#4ECDC4',
+					600: '#3ea49d',
+					700: '#2f7b76',
+					800: '#1f524e',
+					900: '#102927',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -121,15 +133,24 @@ export default {
 						opacity: '1',
 						transform: 'translateY(0)'
 					}
+				},
+				'slide-in': {
+					'0%': {
+						transform: 'translateX(-100%)'
+					},
+					'100%': {
+						transform: 'translateX(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 0.7s ease-out'
+				'fade-in': 'fade-in 0.7s ease-out',
+				'slide-in': 'slide-in 0.5s ease-out'
 			},
 			fontFamily: {
-				serif: ['Playfair Display', 'serif'],
+				serif: ['Merriweather', 'serif'],
 				sans: ['Inter', 'sans-serif'],
 			}
 		}

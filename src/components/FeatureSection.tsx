@@ -2,56 +2,70 @@
 import { 
   Briefcase, 
   Users, 
-  Wallet 
+  Wallet,
+  Shield
 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function FeatureSection() {
   const features = [
     {
       name: "Vetted Professionals",
-      description: "Our advisors undergo a rigorous screening process to ensure they meet our high standards of expertise and client service.",
+      description: "Our platform features only the most qualified financial advisors, each thoroughly vetted to ensure they meet the highest standards of expertise and integrity.",
       icon: Briefcase,
+      color: "bg-teal-50 text-teal-600",
     },
     {
-      name: "Tailored Matches",
-      description: "We match you with advisors who specialize in your specific financial needs and goals.",
+      name: "Personalized Matching",
+      description: "Our sophisticated algorithm connects you with advisors who specialize in your specific financial needs, ensuring a perfect match for your goals.",
       icon: Users,
+      color: "bg-blue-50 text-blue-600",
     },
     {
-      name: "Transparent Pricing",
-      description: "Understand exactly what you're paying for with our clear fee structure and no hidden costs.",
+      name: "Fee Transparency",
+      description: "Full transparency on advisor fees and commission structures ensures you know exactly what you're paying for with no hidden costs.",
       icon: Wallet,
+      color: "bg-amber-50 text-amber-600",
+    },
+    {
+      name: "Secure & Private",
+      description: "Your financial data and personal information are protected with enterprise-grade security protocols and strict privacy policies.",
+      icon: Shield,
+      color: "bg-emerald-50 text-emerald-600",
     },
   ];
 
   return (
     <div id="solutions" className="py-24 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-wealth-950">
-            Why Choose <span className="text-wealth-700">WealthConnect</span>
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-navy-800">
+            Wealth Management <span className="text-teal-600">Simplified</span>
           </h2>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-            We've built a platform that makes finding the right financial advisor simple, transparent, and tailored to your needs.
+          <p className="text-lg text-navy-600 max-w-2xl mx-auto">
+            We've built a platform that makes finding the right financial advisor simple, transparent, and tailored to your unique financial journey.
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <div 
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
+            <Card 
               key={feature.name} 
-              className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+              className="border-none shadow-lg hover:shadow-xl transition-shadow overflow-hidden bg-white rounded-xl"
             >
-              <div className="h-12 w-12 rounded-full bg-wealth-100 flex items-center justify-center mb-6">
-                <feature.icon className="h-6 w-6 text-wealth-800" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-wealth-900">
-                {feature.name}
-              </h3>
-              <p className="text-gray-600">
-                {feature.description}
-              </p>
-            </div>
+              <CardContent className="p-8">
+                <div className={`h-12 w-12 rounded-xl ${feature.color} flex items-center justify-center mb-6`}>
+                  <feature.icon className="h-6 w-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-navy-800">
+                  {feature.name}
+                </h3>
+                <p className="text-navy-600">
+                  {feature.description}
+                </p>
+              </CardContent>
+              <div className="h-1 bg-gradient-to-r from-teal-500 to-blue-500 transform translate-y-px"></div>
+            </Card>
           ))}
         </div>
       </div>

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/sonner";
+import { Mail, Lock, Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -43,8 +44,10 @@ export function LoginForm() {
     setIsLoading(true);
     try {
       await login(values.email, values.password);
+      toast.success("Welcome back!");
       navigate("/");
     } catch (error) {
+      toast.error("Invalid email or password. Please try again.");
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -52,22 +55,25 @@ export function LoginForm() {
   }
 
   return (
-    <div className="mx-auto max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-      <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-wealth-900">Welcome Back</h1>
-        <p className="text-sm text-wealth-600 mt-1">Sign in to your WealthConnect account</p>
-      </div>
-
+    <div className="p-6">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-navy-700">Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="you@example.com" {...field} />
+                  <div className="relative">
+                    <Mail className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                    <Input 
+                      type="email" 
+                      placeholder="you@example.com" 
+                      className="pl-10 py-6 rounded-md bg-gray-50 border-gray-200 focus:border-teal-500" 
+                      {...field} 
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -78,9 +84,17 @@ export function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-navy-700">Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="••••••••" {...field} />
+                  <div className="relative">
+                    <Lock className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                    <Input 
+                      type="password" 
+                      placeholder="••••••••" 
+                      className="pl-10 py-6 rounded-md bg-gray-50 border-gray-200 focus:border-teal-500" 
+                      {...field} 
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -88,14 +102,18 @@ export function LoginForm() {
           />
           
           <div className="flex justify-end">
-            <Link to="/forgot-password" className="text-sm text-wealth-800 hover:underline">
+            <Link to="/forgot-password" className="text-sm text-teal-600 hover:text-teal-700 hover:underline">
               Forgot your password?
             </Link>
           </div>
 
-          <Button type="submit" className="w-full bg-wealth-800 hover:bg-wealth-900" disabled={isLoading}>
+          <Button 
+            type="submit" 
+            className="w-full bg-teal-600 hover:bg-teal-700 text-white py-6 rounded-md font-medium transition-colors" 
+            disabled={isLoading}
+          >
             {isLoading ? (
-              <><span className="animate-spin mr-2">⟳</span> Signing in...</>
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing in...</>
             ) : (
               "Sign in"
             )}
@@ -103,8 +121,10 @@ export function LoginForm() {
         </form>
       </Form>
       
-      <div className="mt-4 text-center text-sm">
-        <p>Don't have an account? <Link to="/register" className="text-wealth-800 hover:underline">Create one</Link></p>
+      <div className="mt-6 text-center text-sm">
+        <p className="text-gray-600">
+          Don't have an account? <Link to="/register" className="text-teal-600 hover:text-teal-800 font-medium hover:underline">Create one</Link>
+        </p>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, User, LogOut } from "lucide-react";
+import { Menu, User, LogOut, ChevronDown } from "lucide-react";
 import { 
   Sheet, 
   SheetContent, 
@@ -22,6 +22,7 @@ export function Header() {
   const isMobile = useIsMobile();
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   
   const navigation = [
     { name: "Home", href: "/" },
@@ -32,76 +33,103 @@ export function Header() {
     { name: "Contact", href: "#contact" },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   const handleLogout = async () => {
     await logout();
   };
 
   return (
-    <header className="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
+    <header className={`fixed w-full z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm' : 'bg-transparent'
+    }`}>
       <div className="container flex items-center justify-between py-4">
         <div className="flex items-center gap-2">
           <Link to="/">
-            <div className="h-8 w-8 rounded-full bg-wealth-800"></div>
+            <div className="h-10 w-10 rounded-full bg-navy-700 flex items-center justify-center">
+              <span className="text-white font-serif font-bold text-lg">W</span>
+            </div>
           </Link>
-          <span className="font-serif text-xl font-semibold text-wealth-950">Wealth<span className="text-gold-500">Connect</span></span>
+          <span className="font-serif text-xl font-semibold text-navy-950">Wealth<span className="text-teal-500">Connect</span></span>
         </div>
         
         {isMobile ? (
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="text-navy-800">
                 <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle menu</span>
+                <span className="sr-only">Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
-              <nav className="flex flex-col gap-4 mt-8">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href.startsWith('#') ? `/${item.href}` : item.href}
-                    className="px-2 py-2 text-lg font-medium hover:text-wealth-700 transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-                
-                {user ? (
-                  <>
-                    <Link 
-                      to="/profile" 
-                      className="px-2 py-2 text-lg font-medium hover:text-wealth-700 transition-colors flex items-center gap-2"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <User size={18} /> My Profile
-                    </Link>
-                    <Button 
-                      className="mt-2 flex items-center gap-2" 
-                      variant="outline"
-                      onClick={() => {
-                        handleLogout();
-                        setIsOpen(false);
-                      }}
-                    >
-                      <LogOut size={18} /> Sign Out
-                    </Button>
-                  </>
-                ) : (
-                  <>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <div className="flex flex-col h-full">
+                <div className="py-6 border-b">
+                  <span className="font-serif text-xl font-semibold text-navy-950">Wealth<span className="text-teal-500">Connect</span></span>
+                </div>
+                <nav className="flex flex-col gap-4 mt-8 flex-grow">
+                  {navigation.map((item) => (
                     <Link
-                      to="/login"
-                      className="px-2 py-2 text-lg font-medium hover:text-wealth-700 transition-colors"
+                      key={item.name}
+                      to={item.href.startsWith('#') ? `/${item.href}` : item.href}
+                      className="px-2 py-3 text-lg font-medium hover:text-teal-600 transition-colors"
                       onClick={() => setIsOpen(false)}
                     >
-                      Sign In
+                      {item.name}
                     </Link>
-                    <Link to="/register" onClick={() => setIsOpen(false)}>
-                      <Button className="mt-2 bg-wealth-800 hover:bg-wealth-900 w-full">Get Started</Button>
-                    </Link>
-                  </>
-                )}
-              </nav>
+                  ))}
+                </nav>
+                <div className="py-6 border-t mt-auto">
+                  {user ? (
+                    <div className="space-y-4">
+                      <div className="flex items-center space-x-3 px-2">
+                        <div className="h-10 w-10 rounded-full bg-navy-100 flex items-center justify-center text-navy-800">
+                          <User size={20} />
+                        </div>
+                        <div>
+                          <p className="font-medium">{user.name}</p>
+                          <p className="text-sm text-muted-foreground">{user.email}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col space-y-2">
+                        <Link to="/profile" onClick={() => setIsOpen(false)}>
+                          <Button variant="outline" className="w-full justify-start">
+                            My Profile
+                          </Button>
+                        </Link>
+                        <Button 
+                          variant="outline" 
+                          className="w-full justify-start text-destructive hover:text-destructive"
+                          onClick={() => {
+                            handleLogout();
+                            setIsOpen(false);
+                          }}
+                        >
+                          <LogOut className="mr-2 h-4 w-4" />
+                          Sign Out
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col space-y-3">
+                      <Link to="/login" onClick={() => setIsOpen(false)}>
+                        <Button variant="outline" className="w-full">Sign In</Button>
+                      </Link>
+                      <Link to="/register" onClick={() => setIsOpen(false)}>
+                        <Button className="w-full bg-teal-600 hover:bg-teal-700">Get Started</Button>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </div>
             </SheetContent>
           </Sheet>
         ) : (
@@ -111,7 +139,7 @@ export function Header() {
                 <Link
                   key={item.name}
                   to={item.href.startsWith('#') ? `/${item.href}` : item.href}
-                  className="hover-underline text-sm font-medium text-wealth-900 hover:text-wealth-700 transition-colors"
+                  className="hover-underline text-sm font-medium text-navy-800 hover:text-teal-600 transition-colors"
                 >
                   {item.name}
                 </Link>
@@ -123,16 +151,26 @@ export function Header() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="flex items-center gap-2">
-                      <User size={16} />
-                      <span>{user.name}</span>
+                      <div className="h-8 w-8 rounded-full bg-navy-100 flex items-center justify-center text-navy-800">
+                        <User size={16} />
+                      </div>
+                      <span className="font-medium text-navy-800">{user.name}</span>
+                      <ChevronDown className="h-4 w-4 text-navy-500" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
+                  <DropdownMenuContent align="end" className="w-56">
+                    <div className="px-2 py-2 text-sm text-muted-foreground">
+                      <p>{user.email}</p>
+                    </div>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                      <Link to="/profile">My Profile</Link>
+                      <Link to="/profile" className="cursor-pointer">My Profile</Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogout}>
+                    <DropdownMenuItem 
+                      onClick={handleLogout}
+                      className="text-destructive focus:text-destructive"
+                    >
                       <LogOut className="mr-2 h-4 w-4" />
                       <span>Sign Out</span>
                     </DropdownMenuItem>
@@ -142,10 +180,10 @@ export function Header() {
             ) : (
               <div className="hidden md:flex items-center gap-4">
                 <Link to="/login">
-                  <Button variant="ghost">Sign In</Button>
+                  <Button variant="ghost" className="text-navy-800">Sign In</Button>
                 </Link>
                 <Link to="/register">
-                  <Button className="bg-wealth-800 hover:bg-wealth-900">Get Started</Button>
+                  <Button className="bg-teal-600 hover:bg-teal-700">Get Started</Button>
                 </Link>
               </div>
             )}

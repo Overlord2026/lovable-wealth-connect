@@ -4,12 +4,10 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Star } from "lucide-react";
 
 type Advisor = {
   id: number;
@@ -19,6 +17,7 @@ type Advisor = {
   specialties: string[];
   experience: string;
   location: string;
+  rating: number;
 };
 
 const advisors: Advisor[] = [
@@ -30,6 +29,7 @@ const advisors: Advisor[] = [
     specialties: ["Retirement Planning", "Estate Planning"],
     experience: "15+ years",
     location: "New York, NY",
+    rating: 4.9,
   },
   {
     id: 2,
@@ -39,6 +39,7 @@ const advisors: Advisor[] = [
     specialties: ["Investment Strategy", "Tax Planning"],
     experience: "12+ years",
     location: "San Francisco, CA",
+    rating: 4.8,
   },
   {
     id: 3,
@@ -48,6 +49,7 @@ const advisors: Advisor[] = [
     specialties: ["Family Office", "Inheritance Planning"],
     experience: "10+ years",
     location: "Chicago, IL",
+    rating: 4.7,
   },
 ];
 
@@ -71,12 +73,12 @@ export function AdvisorSection() {
   return (
     <div id="advisors" className="py-24 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-wealth-950">
-            Meet Our <span className="text-wealth-700">Expert Advisors</span>
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-navy-800">
+            Meet Our <span className="text-teal-600">Expert Advisors</span>
           </h2>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-            Our network of experienced professionals is ready to help you navigate your financial journey.
+          <p className="text-lg text-navy-600 max-w-3xl mx-auto">
+            Connect with top-tier financial professionals who are ready to help you navigate your unique financial journey and achieve your long-term goals.
           </p>
         </div>
         
@@ -85,7 +87,7 @@ export function AdvisorSection() {
             <Button
               key={specialty}
               variant={selectedSpecialty === specialty || (specialty === "All" && !selectedSpecialty) ? "default" : "outline"}
-              className={selectedSpecialty === specialty || (specialty === "All" && !selectedSpecialty) ? "bg-wealth-800" : ""}
+              className={selectedSpecialty === specialty || (specialty === "All" && !selectedSpecialty) ? "bg-teal-600 hover:bg-teal-700" : "border-teal-200 text-teal-700 hover:bg-teal-50"}
               onClick={() => setSelectedSpecialty(specialty === "All" ? null : specialty)}
             >
               {specialty}
@@ -95,35 +97,53 @@ export function AdvisorSection() {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredAdvisors.map((advisor) => (
-            <Card key={advisor.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-4">
+            <Card key={advisor.id} className="overflow-hidden hover:shadow-xl transition-all duration-200 border-none rounded-xl shadow-lg bg-white">
+              <div className="p-6 pb-4">
                 <div className="flex items-center gap-4">
                   <img 
                     src={advisor.image}
                     alt={advisor.name}
-                    className="h-16 w-16 rounded-full object-cover border-2 border-wealth-100"
+                    className="h-16 w-16 rounded-full object-cover border-2 border-teal-100"
                   />
                   <div>
-                    <CardTitle className="text-xl">{advisor.name}</CardTitle>
-                    <CardDescription>{advisor.title}</CardDescription>
+                    <h3 className="text-xl font-bold text-navy-800">{advisor.name}</h3>
+                    <p className="text-navy-600">{advisor.title}</p>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2 mb-4">
+                
+                <div className="flex items-center mt-4 mb-2">
+                  <div className="flex text-amber-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className="h-4 w-4" 
+                        fill={i < Math.floor(advisor.rating) ? "currentColor" : "none"} 
+                      />
+                    ))}
+                  </div>
+                  <span className="ml-2 text-sm font-medium text-navy-600">{advisor.rating}</span>
+                </div>
+                
+                <div className="flex flex-wrap gap-2 my-4">
                   {advisor.specialties.map((specialty) => (
-                    <Badge key={specialty} variant="secondary" className="bg-wealth-50 text-wealth-800">
+                    <Badge key={specialty} variant="outline" className="bg-teal-50 text-teal-700 border-teal-200">
                       {specialty}
                     </Badge>
                   ))}
                 </div>
-                <div className="text-sm text-gray-600 space-y-2">
+                
+                <div className="text-sm text-navy-600 space-y-2 mt-4">
                   <p><span className="font-medium">Experience:</span> {advisor.experience}</p>
                   <p><span className="font-medium">Location:</span> {advisor.location}</p>
                 </div>
+              </div>
+              
+              <CardContent className="p-0">
+                <div className="h-px bg-gradient-to-r from-teal-500 to-blue-500"></div>
               </CardContent>
-              <CardFooter>
-                <Button className="w-full bg-wealth-800 hover:bg-wealth-900">
+              
+              <CardFooter className="p-4 pt-4">
+                <Button className="w-full bg-teal-600 hover:bg-teal-700">
                   View Profile
                 </Button>
               </CardFooter>
@@ -132,7 +152,7 @@ export function AdvisorSection() {
         </div>
         
         <div className="mt-12 text-center">
-          <Button variant="outline" className="border-wealth-800 text-wealth-800 hover:bg-wealth-50">
+          <Button variant="outline" className="border-teal-600 text-teal-700 hover:bg-teal-50">
             View All Advisors
           </Button>
         </div>
