@@ -9,11 +9,11 @@ export default function Login() {
       <Header />
       <main className="flex-grow flex items-center justify-center py-12 px-4">
         <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <h1 className="font-serif text-3xl font-bold">Welcome Back</h1>
+          <div className="text-center mb-8 animate-fade-in">
+            <h1 className="font-serif text-3xl font-bold text-glow">Welcome Back</h1>
             <p className="mt-2 text-muted-foreground">Sign in to access your account</p>
           </div>
-          <div className="card-gradient rounded-xl shadow-lg border border-border/50 overflow-hidden">
+          <div className="premium-card rounded-xl shadow-xl border border-border/50 overflow-hidden bg-card/80 backdrop-blur-sm">
             <LoginForm />
           </div>
         </div>

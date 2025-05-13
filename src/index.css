@@ -7,43 +7,43 @@
 
 @layer base {
   :root {
-    --background: 218 56% 13%;
+    --background: 217 56% 8%;
     --foreground: 0 0% 98%;
 
-    --card: 218 56% 15%;
+    --card: 217 46% 11%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 218 56% 15%;
+    --popover: 217 46% 11%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 188 77% 41%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 33% 20%;
+    --secondary: 217 33% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 218 30% 25%;
+    --muted: 217 30% 20%;
     --muted-foreground: 215 20% 75%;
 
     --accent: 174 59% 56%;
-    --accent-foreground: 218 56% 13%;
+    --accent-foreground: 217 56% 8%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 218 30% 25%;
-    --input: 218 30% 25%;
+    --border: 217 30% 20%;
+    --input: 217 30% 20%;
     --ring: 188 77% 41%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 218 56% 17%;
+    --sidebar-background: 217 56% 12%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 188 77% 41%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 218 30% 22%;
+    --sidebar-accent: 217 30% 17%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 218 30% 25%;
+    --sidebar-border: 217 30% 20%;
     --sidebar-ring: 188 77% 41%;
   }
 }
@@ -67,10 +67,30 @@
   .card-gradient {
     @apply bg-gradient-to-br from-card to-secondary/80 backdrop-blur-sm;
   }
+  
+  .glass-nav {
+    @apply bg-background/80 backdrop-blur-md border-b border-border/50;
+  }
+  
+  .premium-gradient {
+    @apply bg-gradient-to-br from-accent/80 to-primary/90;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 15px rgba(78, 223, 223, 0.5);
+  }
+  
+  .hover-glow {
+    transition: all 0.3s ease;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 15px rgba(78, 223, 223, 0.3);
+  }
 }
 
 .hero-gradient {
-  background: linear-gradient(to right, rgba(8, 20, 40, 0.95), rgba(15, 30, 55, 0.9)), 
+  background: linear-gradient(to right, rgba(4, 13, 33, 0.97), rgba(8, 23, 45, 0.95)), 
               url('/src/assets/hero-bg.jpg');
   background-size: cover;
   background-position: center;
@@ -93,4 +113,24 @@
 
 .hover-underline:hover::after {
   width: 100%;
+}
+
+.premium-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(78, 223, 223, 0) 0%, rgba(78, 223, 223, 0.8) 50%, rgba(78, 223, 223, 0) 100%);
+}
+
+.card-highlight {
+  background: linear-gradient(135deg, rgba(23, 162, 184, 0.15) 0%, rgba(8, 23, 45, 0) 50%);
+  border-left: 2px solid hsl(var(--primary));
 }
