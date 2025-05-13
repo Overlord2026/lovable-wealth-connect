@@ -7,83 +7,44 @@
 
 @layer base {
   :root {
-    --background: 210 33% 98%;
-    --foreground: 210 50% 13%;
+    --background: 218 56% 13%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 210 50% 13%;
+    --card: 218 56% 15%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 50% 13%;
+    --popover: 218 56% 15%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 208 100% 25%;
+    --primary: 188 77% 41%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 188 77% 41%;
-    --secondary-foreground: 210 50% 13%;
+    --secondary: 210 33% 20%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 20% 94%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 218 30% 25%;
+    --muted-foreground: 215 20% 75%;
 
     --accent: 174 59% 56%;
-    --accent-foreground: 210 50% 13%;
+    --accent-foreground: 218 56% 13%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 208 100% 25%;
+    --border: 218 30% 25%;
+    --input: 218 30% 25%;
+    --ring: 188 77% 41%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 210 50% 13%;
-    --sidebar-primary: 208 100% 25%;
+    --sidebar-background: 218 56% 17%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 188 77% 41%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 210 33% 98%;
-    --sidebar-accent-foreground: 210 50% 13%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 208 100% 25%;
-  }
-
-  .dark {
-    --background: 210 50% 10%;
-    --foreground: 210 20% 98%;
-
-    --card: 210 40% 12%;
-    --card-foreground: 210 20% 98%;
-
-    --popover: 210 40% 12%;
-    --popover-foreground: 210 20% 98%;
-
-    --primary: 208 70% 60%;
-    --primary-foreground: 210 20% 98%;
-
-    --secondary: 188 77% 30%;
-    --secondary-foreground: 210 20% 98%;
-
-    --muted: 210 30% 20%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 174 59% 40%;
-    --accent-foreground: 210 20% 98%;
-
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 20% 98%;
-
-    --border: 210 30% 20%;
-    --input: 210 30% 20%;
-    --ring: 208 70% 60%;
-
-    --sidebar-background: 210 40% 15%;
-    --sidebar-foreground: 210 20% 98%;
-    --sidebar-primary: 208 70% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 30% 20%;
-    --sidebar-accent-foreground: 210 20% 98%;
-    --sidebar-border: 210 30% 20%;
-    --sidebar-ring: 208 70% 60%;
+    --sidebar-accent: 218 30% 22%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 218 30% 25%;
+    --sidebar-ring: 188 77% 41%;
   }
 }
 
@@ -100,16 +61,16 @@
 
 @layer utilities {
   .glass-card {
-    @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-lg;
+    @apply bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg;
   }
   
   .card-gradient {
-    @apply bg-gradient-to-br from-white to-muted/50 backdrop-blur-sm;
+    @apply bg-gradient-to-br from-card to-secondary/80 backdrop-blur-sm;
   }
 }
 
 .hero-gradient {
-  background: linear-gradient(to right, rgba(0, 31, 63, 0.9), rgba(15, 46, 76, 0.8)), 
+  background: linear-gradient(to right, rgba(8, 20, 40, 0.95), rgba(15, 30, 55, 0.9)), 
               url('/src/assets/hero-bg.jpg');
   background-size: cover;
   background-position: center;

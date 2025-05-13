@@ -63,14 +63,14 @@ export function LoginForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-navy-700">Email</FormLabel>
+                <FormLabel className="text-foreground">Email</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Mail className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                    <Mail className="h-5 w-5 text-muted-foreground absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <Input 
                       type="email" 
                       placeholder="you@example.com" 
-                      className="pl-10 py-6 rounded-md bg-gray-50 border-gray-200 focus:border-teal-500" 
+                      className="pl-10 py-6 rounded-md bg-secondary/50 border-border focus:border-primary" 
                       {...field} 
                     />
                   </div>
@@ -84,14 +84,14 @@ export function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-navy-700">Password</FormLabel>
+                <FormLabel className="text-foreground">Password</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Lock className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                    <Lock className="h-5 w-5 text-muted-foreground absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <Input 
                       type="password" 
                       placeholder="••••••••" 
-                      className="pl-10 py-6 rounded-md bg-gray-50 border-gray-200 focus:border-teal-500" 
+                      className="pl-10 py-6 rounded-md bg-secondary/50 border-border focus:border-primary" 
                       {...field} 
                     />
                   </div>
@@ -102,14 +102,14 @@ export function LoginForm() {
           />
           
           <div className="flex justify-end">
-            <Link to="/forgot-password" className="text-sm text-teal-600 hover:text-teal-700 hover:underline">
+            <Link to="/forgot-password" className="text-sm text-primary hover:text-primary/90 hover:underline">
               Forgot your password?
             </Link>
           </div>
 
           <Button 
             type="submit" 
-            className="w-full bg-teal-600 hover:bg-teal-700 text-white py-6 rounded-md font-medium transition-colors" 
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 rounded-md font-medium transition-colors" 
             disabled={isLoading}
           >
             {isLoading ? (
@@ -122,8 +122,8 @@ export function LoginForm() {
       </Form>
       
       <div className="mt-6 text-center text-sm">
-        <p className="text-gray-600">
-          Don't have an account? <Link to="/register" className="text-teal-600 hover:text-teal-800 font-medium hover:underline">Create one</Link>
+        <p className="text-muted-foreground">
+          Don't have an account? <Link to="/register" className="text-primary hover:text-primary/90 font-medium hover:underline">Create one</Link>
         </p>
       </div>
     </div>
