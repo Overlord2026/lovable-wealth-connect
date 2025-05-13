@@ -34,8 +34,8 @@ const formSchema = z.object({
   estateGoal: z.boolean().default(false),
   investmentGoal: z.boolean().default(false),
   taxGoal: z.boolean().default(false),
-  termsAccepted: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the terms and conditions" }),
+  termsAccepted: z.boolean().refine((val) => val === true, {
+    message: "You must accept the terms and conditions",
   }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
