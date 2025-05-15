@@ -29,6 +29,13 @@ serve(async (req) => {
   }
   
   try {
+    if (!openaiApiKey) {
+      return new Response(
+        JSON.stringify({ error: "OpenAI API key is missing" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    
     const { message, conversationHistory } = await req.json();
     
     if (!message) {
