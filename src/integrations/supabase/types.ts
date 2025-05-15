@@ -143,6 +143,48 @@ export type Database = {
           },
         ]
       }
+      compliance_records: {
+        Row: {
+          created_at: string
+          expiry_date: string | null
+          id: string
+          professional_id: string
+          record_type: Database["public"]["Enums"]["compliance_record_type"]
+          status: Database["public"]["Enums"]["compliance_status"]
+          updated_at: string
+          verification_data: Json | null
+          verification_date: string | null
+          verification_method: string | null
+          verifier_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          expiry_date?: string | null
+          id?: string
+          professional_id: string
+          record_type: Database["public"]["Enums"]["compliance_record_type"]
+          status?: Database["public"]["Enums"]["compliance_status"]
+          updated_at?: string
+          verification_data?: Json | null
+          verification_date?: string | null
+          verification_method?: string | null
+          verifier_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          expiry_date?: string | null
+          id?: string
+          professional_id?: string
+          record_type?: Database["public"]["Enums"]["compliance_record_type"]
+          status?: Database["public"]["Enums"]["compliance_status"]
+          updated_at?: string
+          verification_data?: Json | null
+          verification_date?: string | null
+          verification_method?: string | null
+          verifier_id?: string | null
+        }
+        Relationships: []
+      }
       content_tags: {
         Row: {
           content_id: string
@@ -171,6 +213,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      data_processing_consents: {
+        Row: {
+          consent_date: string
+          consent_type: Database["public"]["Enums"]["data_consent_type"]
+          created_at: string
+          expiry_date: string | null
+          id: string
+          ip_address: string | null
+          status: boolean
+          updated_at: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          consent_date?: string
+          consent_type: Database["public"]["Enums"]["data_consent_type"]
+          created_at?: string
+          expiry_date?: string | null
+          id?: string
+          ip_address?: string | null
+          status?: boolean
+          updated_at?: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          consent_date?: string
+          consent_type?: Database["public"]["Enums"]["data_consent_type"]
+          created_at?: string
+          expiry_date?: string | null
+          id?: string
+          ip_address?: string | null
+          status?: boolean
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
       }
       document_shares: {
         Row: {
@@ -322,6 +403,36 @@ export type Database = {
           title?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      encrypted_professional_data: {
+        Row: {
+          created_at: string
+          encrypted_personal_details: Json
+          encrypted_verification_documents: Json
+          encryption_key_id: string | null
+          id: string
+          professional_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          encrypted_personal_details?: Json
+          encrypted_verification_documents?: Json
+          encryption_key_id?: string | null
+          id?: string
+          professional_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          encrypted_personal_details?: Json
+          encrypted_verification_documents?: Json
+          encryption_key_id?: string | null
+          id?: string
+          professional_id?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -764,6 +875,61 @@ export type Database = {
         }
         Relationships: []
       }
+      professional_profiles: {
+        Row: {
+          bio: string | null
+          certifications: string[] | null
+          created_at: string | null
+          expertise: string[] | null
+          id: string
+          is_verified: boolean | null
+          kyc_status: Database["public"]["Enums"]["compliance_status"] | null
+          license_number: string
+          profession_type: Database["public"]["Enums"]["profession_type"] | null
+          professional_type: string
+          rating: number | null
+          region: string | null
+          review_count: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          certifications?: string[] | null
+          created_at?: string | null
+          expertise?: string[] | null
+          id: string
+          is_verified?: boolean | null
+          kyc_status?: Database["public"]["Enums"]["compliance_status"] | null
+          license_number: string
+          profession_type?:
+            | Database["public"]["Enums"]["profession_type"]
+            | null
+          professional_type: string
+          rating?: number | null
+          region?: string | null
+          review_count?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          certifications?: string[] | null
+          created_at?: string | null
+          expertise?: string[] | null
+          id?: string
+          is_verified?: boolean | null
+          kyc_status?: Database["public"]["Enums"]["compliance_status"] | null
+          license_number?: string
+          profession_type?:
+            | Database["public"]["Enums"]["profession_type"]
+            | null
+          professional_type?: string
+          rating?: number | null
+          region?: string | null
+          review_count?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -995,6 +1161,20 @@ export type Database = {
         | "crypto"
         | "other"
       app_role: "advisor" | "client"
+      compliance_record_type:
+        | "kyc_verification"
+        | "gdpr_consent"
+        | "terms_acceptance"
+        | "data_access"
+      compliance_status: "pending" | "approved" | "rejected" | "expired"
+      data_consent_type: "gdpr" | "ccpa" | "marketing" | "data_sharing"
+      profession_type:
+        | "accountant"
+        | "attorney"
+        | "tax_advisor"
+        | "estate_planner"
+        | "financial_advisor"
+        | "other"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1122,6 +1302,22 @@ export const Constants = {
         "other",
       ],
       app_role: ["advisor", "client"],
+      compliance_record_type: [
+        "kyc_verification",
+        "gdpr_consent",
+        "terms_acceptance",
+        "data_access",
+      ],
+      compliance_status: ["pending", "approved", "rejected", "expired"],
+      data_consent_type: ["gdpr", "ccpa", "marketing", "data_sharing"],
+      profession_type: [
+        "accountant",
+        "attorney",
+        "tax_advisor",
+        "estate_planner",
+        "financial_advisor",
+        "other",
+      ],
     },
   },
 } as const

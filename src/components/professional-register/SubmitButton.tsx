@@ -1,17 +1,34 @@
 
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 interface SubmitButtonProps {
-  isLoading: boolean;
+  isLoading?: boolean;
+  text?: string;
+  type?: "submit" | "button";
+  onClick?: () => void;
+  variant?: "default" | "outline" | "ghost";
 }
 
-export function SubmitButton({ isLoading }: SubmitButtonProps) {
+export function SubmitButton({ 
+  isLoading = false, 
+  text = "Submit", 
+  type = "button", 
+  onClick,
+  variant = "default"
+}: SubmitButtonProps) {
   return (
-    <Button type="submit" className="w-full bg-wealth-800 hover:bg-wealth-900" disabled={isLoading}>
+    <Button 
+      type={type}
+      className={variant === "default" ? "bg-wealth-800 hover:bg-wealth-900" : ""}
+      variant={variant}
+      disabled={isLoading} 
+      onClick={onClick}
+    >
       {isLoading ? (
-        <><span className="animate-spin mr-2">⟳</span> Submitting application...</>
+        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...</>
       ) : (
-        "Submit Professional Application"
+        text
       )}
     </Button>
   );
