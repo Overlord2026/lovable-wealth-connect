@@ -36,34 +36,34 @@ export function ContactSection() {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-wealth-950">
-              Ready to <span className="text-wealth-700">Get Started?</span>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-[#0F172A]">
+              Ready to <span className="text-[#00B8BF]">Get Started?</span>
             </h2>
-            <p className="text-lg text-gray-700 mb-6">
+            <p className="text-lg text-[#374151] mb-6">
               Fill out the form, and we'll connect you with a financial advisor who matches your needs and goals.
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8">
-              <h3 className="text-xl font-bold mb-4 text-wealth-900">What happens next?</h3>
+            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 mb-8">
+              <h3 className="text-xl font-bold mb-4 text-[#0F172A]">What happens next?</h3>
               <ol className="space-y-4">
                 <li className="flex gap-3">
-                  <span className="flex-shrink-0 h-6 w-6 rounded-full bg-wealth-100 text-wealth-800 flex items-center justify-center text-sm font-medium">1</span>
-                  <p>We'll review your information and needs</p>
+                  <span className="flex-shrink-0 h-6 w-6 rounded-full bg-[#00B8BF]/10 text-[#00B8BF] flex items-center justify-center text-sm font-medium">1</span>
+                  <p className="text-[#374151]">We'll review your information and needs</p>
                 </li>
                 <li className="flex gap-3">
-                  <span className="flex-shrink-0 h-6 w-6 rounded-full bg-wealth-100 text-wealth-800 flex items-center justify-center text-sm font-medium">2</span>
-                  <p>Our team will match you with suitable advisors</p>
+                  <span className="flex-shrink-0 h-6 w-6 rounded-full bg-[#00B8BF]/10 text-[#00B8BF] flex items-center justify-center text-sm font-medium">2</span>
+                  <p className="text-[#374151]">Our team will match you with suitable advisors</p>
                 </li>
                 <li className="flex gap-3">
-                  <span className="flex-shrink-0 h-6 w-6 rounded-full bg-wealth-100 text-wealth-800 flex items-center justify-center text-sm font-medium">3</span>
-                  <p>Schedule a free consultation with your matches</p>
+                  <span className="flex-shrink-0 h-6 w-6 rounded-full bg-[#00B8BF]/10 text-[#00B8BF] flex items-center justify-center text-sm font-medium">3</span>
+                  <p className="text-[#374151]">Schedule a free consultation with your matches</p>
                 </li>
               </ol>
             </div>
           </div>
           
-          <div>
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+          <div className="bg-gray-50 p-8 rounded-xl">
+            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
               <div className="grid gap-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -130,7 +130,7 @@ export function ContactSection() {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-wealth-800 hover:bg-wealth-900"
+                  className="w-full bg-[#00B8BF] hover:bg-[#00B8BF]/90 text-white"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Submitting..." : "Connect With an Advisor"}

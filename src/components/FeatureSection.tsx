@@ -39,10 +39,10 @@ export function FeatureSection() {
     <div id="solutions" className="py-24 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-navy-800">
-            Wealth Management <span className="text-teal-600">Simplified</span>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-[#0F172A]">
+            Wealth Management <span className="text-[#00B8BF]">Simplified</span>
           </h2>
-          <p className="text-lg text-navy-600 max-w-2xl mx-auto">
+          <p className="text-lg text-[#374151] max-w-2xl mx-auto">
             We've built a platform that makes finding the right financial advisor simple, transparent, and tailored to your unique financial journey.
           </p>
         </div>
@@ -57,10 +57,10 @@ export function FeatureSection() {
                 <div className={`h-12 w-12 rounded-xl ${feature.color} flex items-center justify-center mb-6`}>
                   <feature.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-navy-800">
+                <h3 className="text-xl font-bold mb-3 text-[#0F172A]">
                   {feature.name}
                 </h3>
-                <p className="text-navy-600">
+                <p className="text-[#374151]">
                   {feature.description}
                 </p>
               </CardContent>

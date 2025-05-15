@@ -50,7 +50,7 @@ export function Header() {
 
   return (
     <header className={`fixed w-full z-5 transition-all duration-300 ${
-      isScrolled ? 'bg-[#1B1E2E]/90 backdrop-blur-md shadow-sm' : 'bg-[#1B1E2E]'
+      isScrolled ? 'bg-[#1B1E2E]/90 backdrop-blur-md shadow-md' : 'bg-[#1B1E2E]'
     }`}>
       <div className="container flex items-center justify-between py-4">
         <div className="flex items-center gap-2">
@@ -124,7 +124,7 @@ export function Header() {
                         <Button variant="outline" className="w-full">Sign In</Button>
                       </Link>
                       <Link to="/register" onClick={() => setIsOpen(false)}>
-                        <Button className="w-full bg-[#00B8BF] text-white hover:bg-[#00B8BF]/90">Get Started</Button>
+                        <Button className="w-full bg-[#00B8BF] hover:bg-[#00B8BF]/90 text-white">Get Started</Button>
                       </Link>
                     </div>
                   )}

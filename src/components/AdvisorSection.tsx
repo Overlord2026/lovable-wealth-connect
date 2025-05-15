@@ -71,13 +71,13 @@ export function AdvisorSection() {
     : advisors;
 
   return (
-    <div id="advisors" className="py-24 bg-white">
+    <div id="advisors" className="py-24 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-navy-800">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-[#0F172A]">
             Meet Our <span className="text-teal-600">Expert Advisors</span>
           </h2>
-          <p className="text-lg text-navy-600 max-w-3xl mx-auto">
+          <p className="text-lg text-[#374151] max-w-3xl mx-auto">
             Connect with top-tier financial professionals who are ready to help you navigate your unique financial journey and achieve your long-term goals.
           </p>
         </div>
@@ -87,7 +87,9 @@ export function AdvisorSection() {
             <Button
               key={specialty}
               variant={selectedSpecialty === specialty || (specialty === "All" && !selectedSpecialty) ? "default" : "outline"}
-              className={selectedSpecialty === specialty || (specialty === "All" && !selectedSpecialty) ? "bg-teal-600 hover:bg-teal-700" : "border-teal-200 text-teal-700 hover:bg-teal-50"}
+              className={selectedSpecialty === specialty || (specialty === "All" && !selectedSpecialty) 
+                ? "bg-[#00B8BF] text-white font-semibold shadow-sm" 
+                : "bg-neutral-800 text-neutral-300 hover:text-[#00B8BF] border-[#00B8BF]/20"}
               onClick={() => setSelectedSpecialty(specialty === "All" ? null : specialty)}
             >
               {specialty}
@@ -106,8 +108,8 @@ export function AdvisorSection() {
                     className="h-16 w-16 rounded-full object-cover border-2 border-teal-100"
                   />
                   <div>
-                    <h3 className="text-xl font-bold text-navy-800">{advisor.name}</h3>
-                    <p className="text-navy-600">{advisor.title}</p>
+                    <h3 className="text-xl font-bold text-[#0F172A]">{advisor.name}</h3>
+                    <p className="text-[#374151]">{advisor.title}</p>
                   </div>
                 </div>
                 
@@ -121,7 +123,7 @@ export function AdvisorSection() {
                       />
                     ))}
                   </div>
-                  <span className="ml-2 text-sm font-medium text-navy-600">{advisor.rating}</span>
+                  <span className="ml-2 text-sm font-medium text-[#374151]">{advisor.rating}</span>
                 </div>
                 
                 <div className="flex flex-wrap gap-2 my-4">
@@ -132,7 +134,7 @@ export function AdvisorSection() {
                   ))}
                 </div>
                 
-                <div className="text-sm text-navy-600 space-y-2 mt-4">
+                <div className="text-sm text-[#374151] space-y-2 mt-4">
                   <p><span className="font-medium">Experience:</span> {advisor.experience}</p>
                   <p><span className="font-medium">Location:</span> {advisor.location}</p>
                 </div>
@@ -143,7 +145,7 @@ export function AdvisorSection() {
               </CardContent>
               
               <CardFooter className="p-4 pt-4">
-                <Button className="w-full bg-teal-600 hover:bg-teal-700">
+                <Button className="w-full bg-[#00B8BF] hover:bg-[#00B8BF]/90 text-white">
                   View Profile
                 </Button>
               </CardFooter>
@@ -152,7 +154,7 @@ export function AdvisorSection() {
         </div>
         
         <div className="mt-12 text-center">
-          <Button variant="outline" className="border-teal-600 text-teal-700 hover:bg-teal-50">
+          <Button variant="outline" className="border-[#00B8BF] text-[#00B8BF] hover:bg-[#00B8BF]/10">
             View All Advisors
           </Button>
         </div>
