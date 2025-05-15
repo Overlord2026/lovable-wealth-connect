@@ -19,7 +19,7 @@ export interface TravelOption {
 
 export interface TravelBooking {
   id?: string;
-  user_id?: string;
+  user_id: string;
   travel_option_id: string;
   booking_date: string;
   status?: 'pending' | 'confirmed' | 'completed' | 'cancelled';

@@ -6,10 +6,7 @@ export interface Budget {
   id: string;
   user_id: string;
   name: string;
-  period: string;
-  total_income: number;
-  total_expenses: number;
-  savings_goal: number;
+  total_amount: number;
   created_at: string;
   updated_at: string;
 }
@@ -18,9 +15,7 @@ export interface BudgetCategory {
   id: string;
   budget_id: string;
   name: string;
-  type: 'income' | 'expense';
-  amount: number;
-  color: string;
+  allocated_amount: number;
   created_at: string;
   updated_at: string;
 }
@@ -49,7 +44,7 @@ export async function fetchBudgetCategories(budgetId: string): Promise<BudgetCat
       .from('budget_categories')
       .select('*')
       .eq('budget_id', budgetId)
-      .order('amount', { ascending: false });
+      .order('allocated_amount', { ascending: false });
       
     if (error) throw error;
     return data || [];
@@ -67,10 +62,7 @@ export async function createSampleBudget(userId: string): Promise<Budget | null>
       .insert({
         user_id: userId,
         name: 'Monthly Budget',
-        period: 'monthly',
-        total_income: 5000,
-        total_expenses: 3000,
-        savings_goal: 2000
+        total_amount: 5000
       })
       .select()
       .single();
@@ -78,33 +70,22 @@ export async function createSampleBudget(userId: string): Promise<Budget | null>
     if (budgetError) throw budgetError;
     
     if (budget) {
-      // Insert income categories
-      const incomeCategories = [
-        { budget_id: budget.id, name: 'Salary', type: 'income' as const, amount: 4500, color: '#10b981' },
-        { budget_id: budget.id, name: 'Freelance', type: 'income' as const, amount: 500, color: '#3b82f6' }
+      // Insert categories
+      const categories = [
+        { budget_id: budget.id, name: 'Housing', allocated_amount: 1500 },
+        { budget_id: budget.id, name: 'Food', allocated_amount: 800 },
+        { budget_id: budget.id, name: 'Transportation', allocated_amount: 400 },
+        { budget_id: budget.id, name: 'Entertainment', allocated_amount: 300 },
+        { budget_id: budget.id, name: 'Utilities', allocated_amount: 500 },
+        { budget_id: budget.id, name: 'Savings', allocated_amount: 1000 },
+        { budget_id: budget.id, name: 'Miscellaneous', allocated_amount: 500 }
       ];
       
-      const { error: incomeError } = await supabase
+      const { error: categoriesError } = await supabase
         .from('budget_categories')
-        .insert(incomeCategories);
+        .insert(categories);
         
-      if (incomeError) throw incomeError;
-      
-      // Insert expense categories
-      const expenseCategories = [
-        { budget_id: budget.id, name: 'Housing', type: 'expense' as const, amount: 1200, color: '#ef4444' },
-        { budget_id: budget.id, name: 'Food', type: 'expense' as const, amount: 600, color: '#f97316' },
-        { budget_id: budget.id, name: 'Transportation', type: 'expense' as const, amount: 400, color: '#eab308' },
-        { budget_id: budget.id, name: 'Utilities', type: 'expense' as const, amount: 300, color: '#8b5cf6' },
-        { budget_id: budget.id, name: 'Entertainment', type: 'expense' as const, amount: 300, color: '#ec4899' },
-        { budget_id: budget.id, name: 'Miscellaneous', type: 'expense' as const, amount: 200, color: '#6366f1' }
-      ];
-      
-      const { error: expenseError } = await supabase
-        .from('budget_categories')
-        .insert(expenseCategories);
-        
-      if (expenseError) throw expenseError;
+      if (categoriesError) throw categoriesError;
     }
     
     toast.success("Sample budget created successfully!");

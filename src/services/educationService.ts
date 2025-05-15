@@ -45,6 +45,7 @@ export async function fetchFeaturedContent(): Promise<EducationalContent[]> {
       
       return {
         ...item,
+        content_type: item.content_type as 'article' | 'book' | 'guide' | 'whitepaper' | 'course',
         tags: tags?.map(t => t.tag) || []
       };
     }));
@@ -75,6 +76,7 @@ export async function fetchContentByType(type: string): Promise<EducationalConte
       
       return {
         ...item,
+        content_type: item.content_type as 'article' | 'book' | 'guide' | 'whitepaper' | 'course',
         tags: tags?.map(t => t.tag) || []
       };
     }));
@@ -104,6 +106,7 @@ export async function fetchContentBySlug(slug: string): Promise<EducationalConte
     
     return {
       ...data,
+      content_type: data.content_type as 'article' | 'book' | 'guide' | 'whitepaper' | 'course',
       tags: tags?.map(t => t.tag) || []
     };
   } catch (error) {
@@ -131,6 +134,7 @@ export async function searchContent(query: string): Promise<EducationalContent[]
       
       return {
         ...item,
+        content_type: item.content_type as 'article' | 'book' | 'guide' | 'whitepaper' | 'course',
         tags: tags?.map(t => t.tag) || []
       };
     }));
