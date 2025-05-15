@@ -10,6 +10,7 @@ import {
   PieChart,
   Settings,
   User,
+  Bot,
 } from "lucide-react";
 
 export function DashboardSidebar() {
@@ -17,6 +18,7 @@ export function DashboardSidebar() {
   
   const menuItems = [
     { name: "Overview", icon: Home, path: "/dashboard" },
+    { name: "AI Advisor", icon: Bot, path: "/ai-advisor" },
     { name: "Accounts", icon: CreditCard, path: "/accounts" },
     { name: "Budgeting", icon: PieChart, path: "/budget" },
     { name: "Investments", icon: ChartBar, path: "/investments" },
@@ -45,7 +47,7 @@ export function DashboardSidebar() {
               key={item.name}
               to={item.path}
               className={`flex items-center px-3 py-3 rounded-md transition-colors
-                ${item.path === '/dashboard'
+                ${(window.location.pathname === item.path)
                   ? 'bg-wealth-700/10 text-wealth-700'
                   : 'text-gray-700 hover:bg-gray-100'}
               `}

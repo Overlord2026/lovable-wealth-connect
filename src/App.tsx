@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import VerificationPending from "./pages/VerificationPending";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
+import AiAdvisor from "./pages/AiAdvisor";
 import NotFound from "./pages/NotFound";
 import { MobileNav } from "./components/MobileNav";
 
@@ -31,6 +32,7 @@ function AppRoutes() {
         <Route path="/verification-pending" element={<VerificationPending />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/ai-advisor" element={<AiAdvisor />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
