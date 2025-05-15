@@ -21,28 +21,26 @@ export interface BudgetCategory {
 }
 
 export async function fetchUserBudget(userId: string): Promise<Budget | null> {
-  try {
-    const { data, error } = await supabase
-      .from('budgets')
-      .select(`
-        id,
-        user_id,
-        name,
-        total_income as total_amount,
-        created_at,
-        updated_at
-      `)
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single();
-      
-    if (error) throw error;
-    return data;
-  } catch (error) {
-    console.error("Error fetching budget:", error);
+  const { data, error } = await supabase
+    .from('budgets')
+    .select(`
+      id,
+      user_id,
+      name,
+      total_amount:total_income,
+      created_at,
+      updated_at
+    `)
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
+
+  if (error) {
+    console.error('Error fetching budget:', error);
     return null;
   }
+  return data;
 }
 
 export async function fetchBudgetCategories(budgetId: string): Promise<BudgetCategory[]> {
@@ -53,7 +51,7 @@ export async function fetchBudgetCategories(budgetId: string): Promise<BudgetCat
         id,
         budget_id,
         name,
-        amount as allocated_amount,
+        allocated_amount:amount,
         created_at,
         updated_at
       `)
@@ -82,7 +80,7 @@ export async function createSampleBudget(userId: string): Promise<Budget | null>
         id,
         user_id,
         name,
-        total_income as total_amount,
+        total_amount:total_income,
         created_at,
         updated_at
       `)
