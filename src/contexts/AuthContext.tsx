@@ -1,12 +1,14 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from "@/components/ui/sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { Session, User as SupabaseUser } from '@supabase/supabase-js';
 
 interface User {
   id: string;
   email: string;
   name: string;
-  userType?: "client" | "professional";
+  userType: "client" | "professional"; // Fixed type definition to match expected union
   financialGoals?: string[];
   professionalData?: ProfessionalData;
 }
@@ -23,6 +25,7 @@ interface ProfessionalData {
 
 interface AuthContextType {
   user: User | null;
+  session: Session | null; // Added session to the context
   loading: boolean;
   register: (
     email: string, 
@@ -39,22 +42,96 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Check if user is already logged in from localStorage on initial load
+  // Initialize Supabase auth - check for existing session and set up listener
   useEffect(() => {
-    const storedUser = localStorage.getItem('wealthconnect_user');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (error) {
-        console.error("Failed to parse stored user:", error);
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, currentSession) => {
+        setSession(currentSession);
+        
+        if (currentSession?.user) {
+          // Only update user state with synchronous updates here
+          // to prevent auth deadlocks
+          const tempUser: User = {
+            id: currentSession.user.id,
+            email: currentSession.user.email || '',
+            name: currentSession.user.user_metadata.name || currentSession.user.email?.split('@')[0] || '',
+            userType: (currentSession.user.user_metadata.userType as "client" | "professional") || "client",
+          };
+          setUser(tempUser);
+          
+          // Fetch additional user data with a non-blocking timeout
+          if (currentSession?.user) {
+            setTimeout(() => {
+              fetchUserData(currentSession.user);
+            }, 0);
+          }
+        } else {
+          setUser(null);
+        }
       }
-    }
-    setLoading(false);
+    );
+    
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session: initialSession } }) => {
+      setSession(initialSession);
+      
+      if (initialSession?.user) {
+        const initialUser: User = {
+          id: initialSession.user.id,
+          email: initialSession.user.email || '',
+          name: initialSession.user.user_metadata.name || initialSession.user.email?.split('@')[0] || '',
+          userType: (initialSession.user.user_metadata.userType as "client" | "professional") || "client",
+        };
+        setUser(initialUser);
+        
+        // Fetch additional user data
+        fetchUserData(initialSession.user);
+      }
+      
+      setLoading(false);
+    });
+    
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
+  
+  // Fetch additional user data from profiles or other tables
+  const fetchUserData = async (supabaseUser: SupabaseUser) => {
+    try {
+      // Here you would fetch additional user data from your profiles table
+      // For now, using the metadata from supabase auth
+      
+      // If you have a profiles table, you would query it:
+      // const { data, error } = await supabase
+      //   .from('profiles')
+      //   .select('*')
+      //   .eq('id', supabaseUser.id)
+      //   .single();
+      
+      // For now, we'll just use the metadata
+      const userType = supabaseUser.user_metadata.userType as "client" | "professional";
+      const financialGoals = supabaseUser.user_metadata.financialGoals || [];
+      const professionalData = supabaseUser.user_metadata.professionalData;
+      
+      setUser(prevUser => {
+        if (!prevUser) return null;
+        return {
+          ...prevUser,
+          financialGoals,
+          professionalData
+        };
+      });
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
-  // Register functionality (now supports professional registration)
+  // Register with Supabase Auth
   const register = async (
     email: string, 
     password: string, 
@@ -64,28 +141,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   ) => {
     setLoading(true);
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const userType = professionalData ? "professional" : "client";
       
-      // Create a user based on type
-      const newUser: User = {
-        id: `user_${Date.now()}`,
+      // Create user with Supabase Auth
+      const { data, error } = await supabase.auth.signUp({
         email,
-        name,
-        userType: professionalData ? "professional" : "client",
-        financialGoals: professionalData ? [] : financialGoals,
-        professionalData
-      };
+        password,
+        options: {
+          data: {
+            name,
+            userType,
+            financialGoals: professionalData ? [] : financialGoals,
+            professionalData
+          }
+        }
+      });
       
-      // Store in localStorage (temporary until Supabase)
-      localStorage.setItem('wealthconnect_user', JSON.stringify(newUser));
-      setUser(newUser);
+      if (error) throw error;
       
-      const successMessage = professionalData 
-        ? "Professional registration submitted for verification"
-        : "Registration successful!";
-        
-      toast.success(successMessage);
+      if (data?.user) {
+        toast.success(
+          professionalData 
+            ? "Professional registration submitted for verification"
+            : "Registration successful! Please check your email to confirm your account."
+        );
+      }
     } catch (error) {
       console.error("Registration error:", error);
       toast.error("Registration failed. Please try again.");
@@ -95,30 +175,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Mock login functionality (to be replaced with Supabase)
+  // Login with Supabase Auth
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock credential check (replace with actual auth)
-      if (password.length < 6) {
-        throw new Error("Invalid credentials");
-      }
-      
-      // Create a mock user
-      const loggedInUser = {
-        id: `user_${Date.now()}`,
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
-        name: email.split('@')[0], // Temporary name based on email
-        userType: "client",
-        financialGoals: []
-      };
+        password
+      });
       
-      // Store in localStorage (temporary until Supabase)
-      localStorage.setItem('wealthconnect_user', JSON.stringify(loggedInUser));
-      setUser(loggedInUser);
+      if (error) throw error;
       
       toast.success("Login successful!");
     } catch (error) {
@@ -130,12 +196,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Mock logout functionality
+  // Logout with Supabase Auth
   const logout = async () => {
     try {
-      // Clear stored user
-      localStorage.removeItem('wealthconnect_user');
-      setUser(null);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      
       toast.success("Logged out successfully");
     } catch (error) {
       console.error("Logout error:", error);
@@ -145,6 +211,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const value = {
     user,
+    session,
     loading,
     register,
     login,
