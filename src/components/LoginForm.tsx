@@ -70,7 +70,7 @@ export function LoginForm() {
                     <Input 
                       type="email" 
                       placeholder="you@example.com" 
-                      className="pl-10 py-6 rounded-md bg-secondary/50 border-border focus:border-primary" 
+                      className="pl-10 py-6 rounded-md bg-secondary/50 border-border focus:border-accent focus-visible:ring-accent" 
                       {...field} 
                     />
                   </div>
@@ -91,7 +91,7 @@ export function LoginForm() {
                     <Input 
                       type="password" 
                       placeholder="••••••••" 
-                      className="pl-10 py-6 rounded-md bg-secondary/50 border-border focus:border-primary" 
+                      className="pl-10 py-6 rounded-md bg-secondary/50 border-border focus:border-accent focus-visible:ring-accent" 
                       {...field} 
                     />
                   </div>
@@ -102,14 +102,14 @@ export function LoginForm() {
           />
           
           <div className="flex justify-end">
-            <Link to="/forgot-password" className="text-sm text-primary hover:text-primary/90 hover:underline">
+            <Link to="/forgot-password" className="text-sm text-accent hover:text-accent/90 hover:underline">
               Forgot your password?
             </Link>
           </div>
 
           <Button 
             type="submit" 
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 rounded-md font-medium transition-colors" 
+            className="w-full bg-accent hover:bg-accent/90 text-white py-6 rounded-md font-medium transition-colors hover:shadow-lg hover-glow" 
             disabled={isLoading}
           >
             {isLoading ? (
@@ -123,7 +123,7 @@ export function LoginForm() {
       
       <div className="mt-6 text-center text-sm">
         <p className="text-muted-foreground">
-          Don't have an account? <Link to="/register" className="text-primary hover:text-primary/90 font-medium hover:underline">Create one</Link>
+          Don't have an account? <Link to="/register" className="text-accent hover:text-accent/90 font-medium hover:underline">Create one</Link>
         </p>
       </div>
     </div>

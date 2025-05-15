@@ -42,7 +42,8 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
+					DEFAULT: '#00B8BF',
+					light: '#E6F7F8',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
@@ -90,6 +91,12 @@ export default {
 					700: '#2f7b76',
 					800: '#1f524e',
 					900: '#102927',
+				},
+				neutral: {
+					900: '#1B1E2E',
+					800: '#25293F',
+					700: '#374151',
+					200: '#E6E8EB',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
