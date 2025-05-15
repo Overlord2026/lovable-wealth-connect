@@ -66,9 +66,9 @@ export async function fetchBudgetCategories(budgetId: string): Promise<BudgetCat
   }
 }
 
-export async function createSampleBudget(userId: string): Promise<{ budget: Budget; categories: BudgetCategory[] }> {
+export async function createSampleBudget(userId: string): Promise<Budget> {
   // 1) Insert the budget (write to total_income)
-  const { data: [budget], error: budgetError } = await supabase
+  const { data, error: budgetError } = await supabase
     .from('budgets')
     .insert({
       user_id: userId,
@@ -79,12 +79,15 @@ export async function createSampleBudget(userId: string): Promise<{ budget: Budg
       id,
       user_id,
       name,
-      total_amount:total_income, // alias back on return
+      total_amount:total_income,
       created_at,
       updated_at
-    `);
+    `)
+    .single();
 
-  if (budgetError || !budget) throw budgetError;
+  if (budgetError || !data) throw budgetError;
+  
+  const budget = data as Budget;
 
   // 2) Insert categories (write to amount and include type/color)
   const sampleCategories = [
@@ -103,7 +106,6 @@ export async function createSampleBudget(userId: string): Promise<{ budget: Budg
 
   if (catError) throw catError;
 
-  // 3) Fetch and return with proper aliases
-  const categories = await fetchBudgetCategories(budget.id);
-  return { budget, categories };
+  // We don't need to return categories since we're now returning just the budget
+  return budget;
 }
