@@ -17,7 +17,7 @@ export function Hero() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/advisors">
-              <Button className="premium-gradient text-white text-lg px-8 py-6 rounded-md flex items-center gap-2 group hover-glow">
+              <Button className="bg-[#00B8BF] hover:bg-[#00B8BF]/90 text-white text-lg px-8 py-6 rounded-md flex items-center gap-2 group hover-glow">
                 Find an Advisor
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
@@ -31,19 +31,19 @@ export function Hero() {
           
           <div className="mt-16 pt-8 border-t border-border/20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center premium-card p-4 rounded-lg hover-glow">
+              <div className="text-center premium-card p-4 rounded-lg hover-glow shadow-lg">
                 <p className="text-3xl font-bold text-accent">500+</p>
                 <p className="text-sm text-muted-foreground">Financial Advisors</p>
               </div>
-              <div className="text-center premium-card p-4 rounded-lg hover-glow">
+              <div className="text-center premium-card p-4 rounded-lg hover-glow shadow-lg">
                 <p className="text-3xl font-bold text-accent">15k+</p>
                 <p className="text-sm text-muted-foreground">Clients Served</p>
               </div>
-              <div className="text-center premium-card p-4 rounded-lg hover-glow">
+              <div className="text-center premium-card p-4 rounded-lg hover-glow shadow-lg">
                 <p className="text-3xl font-bold text-accent">98%</p>
                 <p className="text-sm text-muted-foreground">Client Satisfaction</p>
               </div>
-              <div className="text-center premium-card p-4 rounded-lg hover-glow">
+              <div className="text-center premium-card p-4 rounded-lg hover-glow shadow-lg">
                 <p className="text-3xl font-bold text-accent">$2B+</p>
                 <p className="text-sm text-muted-foreground">Assets Managed</p>
               </div>

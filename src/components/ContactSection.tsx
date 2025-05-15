@@ -43,7 +43,7 @@ export function ContactSection() {
               Fill out the form, and we'll connect you with a financial advisor who matches your needs and goals.
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 mb-8">
+            <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-100 mb-8">
               <h3 className="text-xl font-bold mb-4 text-[#0F172A]">What happens next?</h3>
               <ol className="space-y-4">
                 <li className="flex gap-3">
