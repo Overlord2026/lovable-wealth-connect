@@ -71,42 +71,6 @@ export function LoginForm() {
 
   return (
     <div className="space-y-6">
-      <div className="space-y-3">
-        <button 
-          onClick={() => handleOAuthLogin('google')}
-          disabled={socialLoading !== null}
-          className="w-full flex items-center justify-center gap-2 py-2 bg-white text-black rounded-md border border-neutral-600 hover:bg-gray-100 transition-colors"
-        >
-          {socialLoading === 'google' ? (
-            <Loader2 className="w-5 h-5 mr-1 animate-spin" />
-          ) : (
-            <img src="/icons/google.svg" className="w-5 h-5" alt="Google" />
-          )}
-          Continue with Google
-          {socialLoading === 'google' && <CheckCircle className="w-5 h-5 text-green-500" />}
-        </button>
-        
-        <button 
-          onClick={() => handleOAuthLogin('azure')}
-          disabled={socialLoading !== null}
-          className="w-full flex items-center justify-center gap-2 py-2 bg-white text-black rounded-md border border-neutral-600 hover:bg-gray-100 transition-colors"
-        >
-          {socialLoading === 'azure' ? (
-            <Loader2 className="w-5 h-5 mr-1 animate-spin" />
-          ) : (
-            <img src="/icons/microsoft.svg" className="w-5 h-5" alt="Microsoft" />
-          )}
-          Continue with Microsoft
-          {socialLoading === 'azure' && <CheckCircle className="w-5 h-5 text-green-500" />}
-        </button>
-      </div>
-
-      <div className="flex items-center my-4">
-        <hr className="flex-grow border-neutral-600"/>
-        <span className="px-2 text-xs text-neutral-500">OR CONTINUE WITH</span>
-        <hr className="flex-grow border-neutral-600"/>
-      </div>
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
           <FormField
@@ -170,6 +134,42 @@ export function LoginForm() {
           </Button>
         </form>
       </Form>
+
+      <div className="flex items-center my-4">
+        <hr className="flex-grow border-neutral-600"/>
+        <span className="px-2 text-xs text-neutral-500">OR CONTINUE WITH</span>
+        <hr className="flex-grow border-neutral-600"/>
+      </div>
+
+      <div className="space-y-3">
+        <button 
+          onClick={() => handleOAuthLogin('google')}
+          disabled={socialLoading !== null}
+          className="w-full flex items-center justify-center gap-2 py-2 bg-white text-black rounded-md border border-neutral-600 hover:bg-gray-100 transition-colors"
+        >
+          {socialLoading === 'google' ? (
+            <Loader2 className="w-5 h-5 mr-1 animate-spin" />
+          ) : (
+            <img src="/icons/google.svg" className="w-5 h-5" alt="Google" />
+          )}
+          Continue with Google
+          {socialLoading === 'google' && <CheckCircle className="w-5 h-5 text-green-500" />}
+        </button>
+        
+        <button 
+          onClick={() => handleOAuthLogin('azure')}
+          disabled={socialLoading !== null}
+          className="w-full flex items-center justify-center gap-2 py-2 bg-white text-black rounded-md border border-neutral-600 hover:bg-gray-100 transition-colors"
+        >
+          {socialLoading === 'azure' ? (
+            <Loader2 className="w-5 h-5 mr-1 animate-spin" />
+          ) : (
+            <img src="/icons/microsoft.svg" className="w-5 h-5" alt="Microsoft" />
+          )}
+          Continue with Microsoft
+          {socialLoading === 'azure' && <CheckCircle className="w-5 h-5 text-green-500" />}
+        </button>
+      </div>
     </div>
   );
 }
