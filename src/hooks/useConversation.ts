@@ -4,7 +4,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
 import { v4 as uuidv4 } from "uuid";
 import { FinancialTopic } from "@/components/chat/TopicSelector";
-import { User } from "@supabase/supabase-js";
 
 export interface Message {
   id: string;
@@ -13,7 +12,8 @@ export interface Message {
   created_at: string;
 }
 
-export function useConversation(user: User | null) {
+// Changed the user type to a more generic type that only requires an id property
+export function useConversation(user: { id: string } | null) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
