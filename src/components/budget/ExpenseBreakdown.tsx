@@ -11,8 +11,15 @@ interface ExpenseBreakdownProps {
   isLoading: boolean;
 }
 
+// Color palette for the chart
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658'];
+
 export function ExpenseBreakdown({ categories, isLoading }: ExpenseBreakdownProps) {
-  const expenseCategories = categories.filter(cat => cat.type === 'expense');
+  // All categories are considered expenses in this view
+  const chartData = categories.map((cat, index) => ({
+    ...cat,
+    color: COLORS[index % COLORS.length] // Assign colors from our palette
+  }));
   
   const renderCustomizedLabel = ({ 
     cx, 
@@ -61,7 +68,7 @@ export function ExpenseBreakdown({ categories, isLoading }: ExpenseBreakdownProp
           <div className="flex justify-center items-center h-64">
             <Skeleton className="h-52 w-52 rounded-full" />
           </div>
-        ) : expenseCategories.length === 0 ? (
+        ) : chartData.length === 0 ? (
           <div className="flex justify-center items-center h-64 text-muted-foreground">
             No expense data available
           </div>
@@ -70,17 +77,17 @@ export function ExpenseBreakdown({ categories, isLoading }: ExpenseBreakdownProp
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={expenseCategories}
+                  data={chartData}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
                   label={renderCustomizedLabel}
                   outerRadius={80}
                   fill="#8884d8"
-                  dataKey="amount"
+                  dataKey="allocated_amount"
                   nameKey="name"
                 >
-                  {expenseCategories.map((entry, index) => (
+                  {chartData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>

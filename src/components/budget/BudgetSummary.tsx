@@ -4,16 +4,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DollarSign, PiggyBank, ShoppingCart } from "lucide-react";
 import { formatCurrency } from "@/lib/formatters";
-import { Budget } from "@/services/budgetService";
+import { Budget, BudgetCategory } from "@/services/budgetService";
 
 interface BudgetSummaryProps {
   budget: Budget | null;
+  categories: BudgetCategory[];
   isLoading: boolean;
 }
 
-export function BudgetSummary({ budget, isLoading }: BudgetSummaryProps) {
-  const savingsAmount = budget ? budget.total_income - budget.total_expenses : 0;
-  const savingsPercentage = budget ? Math.round((savingsAmount / budget.total_income) * 100) : 0;
+export function BudgetSummary({ budget, categories, isLoading }: BudgetSummaryProps) {
+  // Calculate income and expense totals from categories
+  const expenseCategories = categories.reduce((total, cat) => total + cat.allocated_amount, 0);
+  const savingsAmount = budget ? budget.total_amount - expenseCategories : 0;
+  const savingsPercentage = budget && budget.total_amount > 0 
+    ? Math.round((savingsAmount / budget.total_amount) * 100) 
+    : 0;
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -23,11 +28,11 @@ export function BudgetSummary({ budget, isLoading }: BudgetSummaryProps) {
             <DollarSign className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <p className="text-muted-foreground text-sm">Total Income</p>
+            <p className="text-muted-foreground text-sm">Total Budget</p>
             {isLoading ? (
               <Skeleton className="h-7 w-24 mt-1" />
             ) : (
-              <p className="text-2xl font-bold">{formatCurrency(budget?.total_income || 0)}</p>
+              <p className="text-2xl font-bold">{formatCurrency(budget?.total_amount || 0)}</p>
             )}
           </div>
         </CardContent>
@@ -43,7 +48,7 @@ export function BudgetSummary({ budget, isLoading }: BudgetSummaryProps) {
             {isLoading ? (
               <Skeleton className="h-7 w-24 mt-1" />
             ) : (
-              <p className="text-2xl font-bold">{formatCurrency(budget?.total_expenses || 0)}</p>
+              <p className="text-2xl font-bold">{formatCurrency(expenseCategories)}</p>
             )}
           </div>
         </CardContent>
@@ -61,7 +66,7 @@ export function BudgetSummary({ budget, isLoading }: BudgetSummaryProps) {
             ) : (
               <div>
                 <p className="text-2xl font-bold">{formatCurrency(savingsAmount)}</p>
-                <p className="text-xs text-muted-foreground">{savingsPercentage}% of income</p>
+                <p className="text-xs text-muted-foreground">{savingsPercentage}% of budget</p>
               </div>
             )}
           </div>

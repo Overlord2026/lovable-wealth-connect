@@ -100,14 +100,14 @@ export default function BudgetPage() {
                   </Button>
                 </div>
                 
-                <BudgetSummary budget={budget} isLoading={isLoading} />
+                <BudgetSummary budget={budget} categories={categories} isLoading={isLoading} />
                 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <ExpenseBreakdown categories={categories} isLoading={isLoading} />
                   <IncomeSources categories={categories} isLoading={isLoading} />
                 </div>
                 
-                <SavingsProgress budget={budget} isLoading={isLoading} />
+                <SavingsProgress budget={budget} categories={categories} isLoading={isLoading} />
               </div>
             </div>
           </div>

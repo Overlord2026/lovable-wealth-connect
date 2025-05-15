@@ -56,7 +56,7 @@ export async function fetchBudgetCategories(budgetId: string): Promise<BudgetCat
 
 export async function createSampleBudget(userId: string): Promise<Budget | null> {
   try {
-    // Insert budget
+    // Insert budget with total_amount
     const { data: budget, error: budgetError } = await supabase
       .from('budgets')
       .insert({
@@ -70,7 +70,7 @@ export async function createSampleBudget(userId: string): Promise<Budget | null>
     if (budgetError) throw budgetError;
     
     if (budget) {
-      // Insert categories
+      // Insert categories with allocated_amount
       const categories = [
         { budget_id: budget.id, name: 'Housing', allocated_amount: 1500 },
         { budget_id: budget.id, name: 'Food', allocated_amount: 800 },

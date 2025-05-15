@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { format } from 'date-fns';
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   Form,
   FormControl,
@@ -38,6 +39,7 @@ type FormValues = {
 
 export function BookingForm({ option, onSuccess, onCancel }: BookingFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
   
   const form = useForm<FormValues>({
     defaultValues: {
@@ -48,10 +50,16 @@ export function BookingForm({ option, onSuccess, onCancel }: BookingFormProps) {
   });
 
   const handleSubmit = async (values: FormValues) => {
+    if (!user) {
+      console.error("User is not authenticated");
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
       const booking = {
+        user_id: user.id, // Add the user_id
         travel_option_id: option.id,
         booking_date: format(values.booking_date, 'yyyy-MM-dd'),
         passengers: values.passengers,

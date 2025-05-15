@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -61,7 +60,6 @@ export function ProfessionalRegisterForm() {
           region: values.region,
           bio: values.bio,
           isVerified: false, // Initial verification status
-          kyc_status: "pending",
         }
       );
       

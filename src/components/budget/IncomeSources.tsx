@@ -12,7 +12,11 @@ interface IncomeSourcesProps {
 }
 
 export function IncomeSources({ categories, isLoading }: IncomeSourcesProps) {
-  const incomeCategories = categories.filter(cat => cat.type === 'income');
+  // For now we'll assign the largest categories as income (since we don't have a type field)
+  // This is just a visual approximation until we implement proper income tracking
+  const incomeCategories = [...categories]
+    .sort((a, b) => b.allocated_amount - a.allocated_amount)
+    .slice(0, 3); // Show top 3 categories as "income"
   
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
@@ -29,7 +33,7 @@ export function IncomeSources({ categories, isLoading }: IncomeSourcesProps) {
   return (
     <Card className="bg-card">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-medium">Income Sources</CardTitle>
+        <CardTitle className="text-lg font-medium">Top Budget Categories</CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
@@ -40,7 +44,7 @@ export function IncomeSources({ categories, isLoading }: IncomeSourcesProps) {
           </div>
         ) : incomeCategories.length === 0 ? (
           <div className="flex justify-center items-center h-64 text-muted-foreground">
-            No income data available
+            No budget data available
           </div>
         ) : (
           <div className="h-64">
@@ -53,7 +57,7 @@ export function IncomeSources({ categories, isLoading }: IncomeSourcesProps) {
                 <XAxis type="number" tickFormatter={(value) => formatCurrency(value)} />
                 <YAxis type="category" dataKey="name" width={80} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="amount" fill="#10b981" radius={[0, 4, 4, 0]} />
+                <Bar dataKey="allocated_amount" fill="#10b981" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
