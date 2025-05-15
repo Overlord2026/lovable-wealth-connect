@@ -8,6 +8,8 @@ interface SubmitButtonProps {
   type?: "submit" | "button";
   onClick?: () => void;
   variant?: "default" | "outline" | "ghost";
+  disabled?: boolean;
+  className?: string;
 }
 
 export function SubmitButton({ 
@@ -15,14 +17,16 @@ export function SubmitButton({
   text = "Submit", 
   type = "button", 
   onClick,
-  variant = "default"
+  variant = "default",
+  disabled,
+  className
 }: SubmitButtonProps) {
   return (
     <Button 
       type={type}
-      className={variant === "default" ? "bg-wealth-800 hover:bg-wealth-900" : ""}
+      className={`${variant === "default" ? "bg-wealth-800 hover:bg-wealth-900" : ""} ${className || ""}`}
       variant={variant}
-      disabled={isLoading} 
+      disabled={disabled || isLoading} 
       onClick={onClick}
     >
       {isLoading ? (

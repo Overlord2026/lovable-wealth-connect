@@ -80,8 +80,8 @@ export async function createSampleBudget(userId: string): Promise<Budget | null>
     if (budget) {
       // Insert income categories
       const incomeCategories = [
-        { budget_id: budget.id, name: 'Salary', type: 'income', amount: 4500, color: '#10b981' },
-        { budget_id: budget.id, name: 'Freelance', type: 'income', amount: 500, color: '#3b82f6' }
+        { budget_id: budget.id, name: 'Salary', type: 'income' as const, amount: 4500, color: '#10b981' },
+        { budget_id: budget.id, name: 'Freelance', type: 'income' as const, amount: 500, color: '#3b82f6' }
       ];
       
       const { error: incomeError } = await supabase
@@ -92,12 +92,12 @@ export async function createSampleBudget(userId: string): Promise<Budget | null>
       
       // Insert expense categories
       const expenseCategories = [
-        { budget_id: budget.id, name: 'Housing', type: 'expense', amount: 1200, color: '#ef4444' },
-        { budget_id: budget.id, name: 'Food', type: 'expense', amount: 600, color: '#f97316' },
-        { budget_id: budget.id, name: 'Transportation', type: 'expense', amount: 400, color: '#eab308' },
-        { budget_id: budget.id, name: 'Utilities', type: 'expense', amount: 300, color: '#8b5cf6' },
-        { budget_id: budget.id, name: 'Entertainment', type: 'expense', amount: 300, color: '#ec4899' },
-        { budget_id: budget.id, name: 'Miscellaneous', type: 'expense', amount: 200, color: '#6366f1' }
+        { budget_id: budget.id, name: 'Housing', type: 'expense' as const, amount: 1200, color: '#ef4444' },
+        { budget_id: budget.id, name: 'Food', type: 'expense' as const, amount: 600, color: '#f97316' },
+        { budget_id: budget.id, name: 'Transportation', type: 'expense' as const, amount: 400, color: '#eab308' },
+        { budget_id: budget.id, name: 'Utilities', type: 'expense' as const, amount: 300, color: '#8b5cf6' },
+        { budget_id: budget.id, name: 'Entertainment', type: 'expense' as const, amount: 300, color: '#ec4899' },
+        { budget_id: budget.id, name: 'Miscellaneous', type: 'expense' as const, amount: 200, color: '#6366f1' }
       ];
       
       const { error: expenseError } = await supabase

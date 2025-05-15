@@ -84,6 +84,83 @@ export type Database = {
         }
         Relationships: []
       }
+      budget_categories: {
+        Row: {
+          amount: number
+          budget_id: string
+          color: string
+          created_at: string
+          id: string
+          name: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          amount?: number
+          budget_id: string
+          color: string
+          created_at?: string
+          id?: string
+          name: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          budget_id?: string
+          color?: string
+          created_at?: string
+          id?: string
+          name?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budget_categories_budget_id_fkey"
+            columns: ["budget_id"]
+            isOneToOne: false
+            referencedRelation: "budgets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      budgets: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          period: string
+          savings_goal: number
+          total_expenses: number
+          total_income: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          period?: string
+          savings_goal?: number
+          total_expenses?: number
+          total_income?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          period?: string
+          savings_goal?: number
+          total_expenses?: number
+          total_income?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       chat_conversations: {
         Row: {
           created_at: string | null

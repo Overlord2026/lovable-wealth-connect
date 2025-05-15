@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -48,25 +47,25 @@ export function ProfessionalRegisterForm() {
     setIsLoading(true);
     try {
       // Step 1: Create user account
-      const { data: authData, error: authError } = await register(
+      await register(
         values.email, 
         values.password, 
         values.name, 
         [], 
         {
-          userType: "professional" as const,
           professionalType: values.professionalType,
           licenseNumber: values.licenseNumber,
           expertise: values.expertise,
           certifications: values.certifications || [],
           region: values.region,
           bio: values.bio,
-          isVerified: false, // Initial verification status is false
-          kycStatus: "pending",
+          is_verified: false, // Initial verification status is false
+          kyc_status: "pending",
         }
       );
       
-      if (authError) throw authError;
+      // Get the current user
+      const { data: authData } = await supabase.auth.getUser();
       
       if (authData?.user) {
         const userId = authData.user.id;
