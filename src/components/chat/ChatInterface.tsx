@@ -47,7 +47,10 @@ export function ChatInterface() {
     try {
       const { data, error } = await supabase
         .from("chat_conversations")
-        .insert([{ title: "New Conversation" }])
+        .insert({
+          title: "New Conversation",
+          user_id: user?.id // Add user_id here
+        })
         .select("id")
         .single();
         
@@ -91,6 +94,7 @@ export function ChatInterface() {
         content,
         is_assistant: isAssistant,
         created_at: new Date().toISOString(),
+        user_id: user.id // Add user_id here
       };
       
       const { error } = await supabase
