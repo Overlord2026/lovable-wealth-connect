@@ -17,12 +17,14 @@ export function AuthCard({ children, activeTab }: AuthCardProps) {
       </div>
       
       <div className="premium-card rounded-xl shadow-xl border border-border/50 overflow-hidden bg-neutral-800/80 backdrop-blur-sm">
-        <div className="flex space-x-1 bg-neutral-700 rounded-t-lg p-1">
+        <div className="flex space-x-1 bg-[#1B1E2E] rounded-t-lg p-1">
           <Link 
             to="/login"
             className={cn(
               "flex-1 text-center rounded-md py-2 font-semibold transition-colors",
-              activeTab === "login" ? "text-white bg-neutral-800" : "text-neutral-400 hover:text-white"
+              activeTab === "login" 
+                ? "bg-[#25293F] text-white border-b-2 border-[#00B8BF]" 
+                : "text-[#6B7280] hover:text-white"
             )}
           >
             Login
@@ -31,7 +33,9 @@ export function AuthCard({ children, activeTab }: AuthCardProps) {
             to="/register"
             className={cn(
               "flex-1 text-center rounded-md py-2 font-semibold transition-colors",
-              activeTab === "register" ? "text-white bg-neutral-800" : "text-neutral-400 hover:text-white"
+              activeTab === "register" 
+                ? "bg-[#25293F] text-white border-b-2 border-[#00B8BF]" 
+                : "text-[#6B7280] hover:text-white"
             )}
           >
             Sign Up

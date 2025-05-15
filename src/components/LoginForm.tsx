@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -85,7 +84,7 @@ export function LoginForm() {
                     <Input 
                       type="email" 
                       placeholder="you@example.com" 
-                      className="pl-10 py-6 rounded-md bg-neutral-800 border-neutral-600 focus:border-amber-400 focus:ring-2 focus:ring-amber-400" 
+                      className="pl-10" 
                       {...field} 
                     />
                   </div>
@@ -111,7 +110,7 @@ export function LoginForm() {
                     <Input 
                       type="password" 
                       placeholder="••••••••" 
-                      className="pl-10 py-6 rounded-md bg-neutral-800 border-neutral-600 focus:border-amber-400 focus:ring-2 focus:ring-amber-400" 
+                      className="pl-10" 
                       {...field} 
                     />
                   </div>
@@ -123,7 +122,7 @@ export function LoginForm() {
 
           <Button 
             type="submit" 
-            className="w-full py-2 mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md h-auto" 
+            className="w-full py-2 mt-4 font-semibold h-auto" 
             disabled={isLoading}
           >
             {isLoading ? (
@@ -136,9 +135,9 @@ export function LoginForm() {
       </Form>
 
       <div className="flex items-center my-4">
-        <hr className="flex-grow border-neutral-600"/>
+        <hr className="flex-grow border-neutral-700"/>
         <span className="px-2 text-xs text-neutral-500">OR CONTINUE WITH</span>
-        <hr className="flex-grow border-neutral-600"/>
+        <hr className="flex-grow border-neutral-700"/>
       </div>
 
       <div className="space-y-3">

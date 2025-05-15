@@ -15,16 +15,16 @@ export default function Login() {
             <h1 className="text-xl font-bold text-white mb-1">Log in securely</h1>
             <p className="text-sm text-neutral-400">Access your family office portal</p>
           </div>
-          <div className="flex items-center space-x-2 mb-6">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-6">
             <span className="text-sm font-semibold text-amber-400">Boutique Family Office</span>
             <Lock className="w-5 h-5 text-amber-400"/>
             <span className="text-sm text-neutral-400">Secure login</span>
           </div>
           <LoginForm />
-          <div className="mt-4 text-center text-xs text-neutral-500">
+          <div className="mt-6 text-center text-xs text-neutral-500">
             Protected by industry-leading security protocols
-            <div className="flex items-center justify-center mt-1 text-green-400">
-              <ShieldCheck className="w-4 h-4 mr-1"/> 256-bit encryption
+            <div className="flex items-center justify-center mt-1 text-green-400 text-[10px] gap-1">
+              <ShieldCheck className="w-4 h-4"/> 256-bit encryption
             </div>
           </div>
         </AuthCard>
