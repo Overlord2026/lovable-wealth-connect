@@ -21,10 +21,11 @@ export function AccountsSummary({ isLoading: parentLoading }: { isLoading: boole
       try {
         setIsLoading(true);
         
+        // Use the custom type assertion to handle TypeScript errors
         const { data, error } = await supabase
           .from('financial_accounts')
           .select('*')
-          .order('account_type', { ascending: true });
+          .order('account_type', { ascending: true }) as { data: Account[] | null; error: Error | null };
           
         if (error) throw error;
         

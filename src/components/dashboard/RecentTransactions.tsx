@@ -24,26 +24,48 @@ export function RecentTransactions({ isLoading: parentLoading }: { isLoading: bo
       try {
         setIsLoading(true);
         
-        const { data, error } = await supabase
+        // First get transactions
+        const { data: transactionData, error: transactionError } = await supabase
           .from('transactions')
-          .select(`
-            *,
-            financial_accounts!inner (
-              name
-            )
-          `)
+          .select('*')
           .order('transaction_date', { ascending: false })
-          .limit(5);
+          .limit(5) as { data: Transaction[] | null; error: Error | null };
           
-        if (error) throw error;
+        if (transactionError) throw transactionError;
         
-        // Transform the data to include account_name from the joined financial_accounts table
-        const formattedData = data?.map(item => ({
-          ...item,
-          account_name: item.financial_accounts?.name
-        }));
-        
-        setTransactions(formattedData || []);
+        // If we have transactions, fetch account names
+        if (transactionData && transactionData.length > 0) {
+          const accountIds = transactionData.map(t => t.account_id).filter(id => id);
+          
+          if (accountIds.length > 0) {
+            const { data: accountsData, error: accountsError } = await supabase
+              .from('financial_accounts')
+              .select('id, name')
+              .in('id', accountIds) as { data: { id: string; name: string }[] | null; error: Error | null };
+              
+            if (accountsError) throw accountsError;
+            
+            // Map account names to transactions
+            const accountMap: Record<string, string> = {};
+            if (accountsData) {
+              accountsData.forEach(account => {
+                accountMap[account.id] = account.name;
+              });
+            }
+            
+            // Add account names to transactions
+            const enrichedTransactions = transactionData.map(transaction => ({
+              ...transaction,
+              account_name: transaction.account_id ? accountMap[transaction.account_id] : 'Unlinked'
+            }));
+            
+            setTransactions(enrichedTransactions);
+          } else {
+            setTransactions(transactionData);
+          }
+        } else {
+          setTransactions([]);
+        }
       } catch (error) {
         console.error("Error fetching transactions:", error);
         toast.error("Failed to load recent transactions");

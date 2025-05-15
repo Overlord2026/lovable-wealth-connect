@@ -12,6 +12,12 @@ import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
 
+interface FinancialAccount {
+  id: string;
+  balance: number;
+  account_type: string;
+}
+
 export default function Dashboard() {
   const [accountsTotal, setAccountsTotal] = useState(0);
   const [assetsTotal, setAssetsTotal] = useState(0);
@@ -23,10 +29,10 @@ export default function Dashboard() {
       try {
         setIsLoading(true);
         
-        // Load accounts data
+        // Load accounts data with type assertion for TypeScript
         const { data: accounts, error: accountsError } = await supabase
           .from('financial_accounts')
-          .select('*');
+          .select('*') as { data: FinancialAccount[] | null; error: Error | null };
           
         if (accountsError) throw accountsError;
         

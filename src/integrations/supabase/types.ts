@@ -216,6 +216,54 @@ export type Database = {
         }
         Relationships: []
       }
+      financial_accounts: {
+        Row: {
+          account_number: string | null
+          account_type: Database["public"]["Enums"]["account_type"]
+          balance: number
+          created_at: string | null
+          currency: string | null
+          id: string
+          institution: string
+          is_manually_added: boolean | null
+          last_updated: string | null
+          metadata: Json | null
+          name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          account_number?: string | null
+          account_type: Database["public"]["Enums"]["account_type"]
+          balance?: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          institution: string
+          is_manually_added?: boolean | null
+          last_updated?: string | null
+          metadata?: Json | null
+          name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          account_number?: string | null
+          account_type?: Database["public"]["Enums"]["account_type"]
+          balance?: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          institution?: string
+          is_manually_added?: boolean | null
+          last_updated?: string | null
+          metadata?: Json | null
+          name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       integration_projects: {
         Row: {
           api_token: string | null
@@ -532,6 +580,62 @@ export type Database = {
           },
         ]
       }
+      transactions: {
+        Row: {
+          account_id: string | null
+          amount: number
+          category: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          is_recurring: boolean | null
+          metadata: Json | null
+          recurring_frequency: string | null
+          subcategory: string | null
+          transaction_date: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          account_id?: string | null
+          amount: number
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          metadata?: Json | null
+          recurring_frequency?: string | null
+          subcategory?: string | null
+          transaction_date?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          account_id?: string | null
+          amount?: number
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          metadata?: Json | null
+          recurring_frequency?: string | null
+          subcategory?: string | null
+          transaction_date?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "financial_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string | null
@@ -568,6 +672,16 @@ export type Database = {
       }
     }
     Enums: {
+      account_type:
+        | "checking"
+        | "savings"
+        | "investment"
+        | "retirement"
+        | "credit_card"
+        | "loan"
+        | "mortgage"
+        | "crypto"
+        | "other"
       app_role: "advisor" | "client"
     }
     CompositeTypes: {
@@ -684,6 +798,17 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      account_type: [
+        "checking",
+        "savings",
+        "investment",
+        "retirement",
+        "credit_card",
+        "loan",
+        "mortgage",
+        "crypto",
+        "other",
+      ],
       app_role: ["advisor", "client"],
     },
   },
