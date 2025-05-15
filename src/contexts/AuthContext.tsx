@@ -1,8 +1,7 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { Session, User as SupabaseUser } from '@supabase/supabase-js';
+import { Session, User as SupabaseUser, Provider } from '@supabase/supabase-js';
 
 interface User {
   id: string;
@@ -36,6 +35,7 @@ interface AuthContextType {
   ) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  loginWithOAuth: (provider: Provider) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -196,6 +196,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // OAuth Sign In with Supabase Auth
+  const loginWithOAuth = async (provider: Provider) => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: window.location.origin + '/login',
+        }
+      });
+      
+      if (error) throw error;
+      
+      // No need for success toast here as the page will redirect to OAuth provider
+    } catch (error) {
+      console.error("OAuth login error:", error);
+      toast.error("Login failed. Please try again.");
+      setLoading(false);
+      throw error;
+    }
+  };
+
   // Logout with Supabase Auth
   const logout = async () => {
     try {
@@ -215,7 +237,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loading,
     register,
     login,
-    logout
+    logout,
+    loginWithOAuth
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
