@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster"
@@ -16,6 +17,7 @@ import VerificationPending from "./pages/VerificationPending";
 import NotFound from "./pages/NotFound";
 import Education from "./pages/Education";
 import ContentDetail from "./pages/ContentDetail";
+import LuxuryTravel from "./pages/LuxuryTravel";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -60,6 +62,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ContentDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/luxury-travel"
+          element={
+            <ProtectedRoute>
+              <LuxuryTravel />
             </ProtectedRoute>
           }
         />

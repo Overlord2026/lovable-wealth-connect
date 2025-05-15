@@ -1,6 +1,6 @@
+
 import React from "react";
-import { Sidebar, SidebarItem } from "@/components/ui/sidebar";
-import { useSession, signOut } from "next-auth/react";
+import { Sidebar, SidebarContent } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -17,15 +17,31 @@ import {
   User, 
   CreditCard, 
   Clock, 
-  BookOpen
+  BookOpen,
+  Plane
 } from "lucide-react";
 import { Settings } from "lucide-react";
-import { useRouter } from 'next/navigation';
+import { Link } from "react-router-dom";
+
+interface SidebarItemProps {
+  icon: React.ReactNode;
+  href: string;
+  text: string;
+}
+
+function SidebarItem({ icon, href, text }: SidebarItemProps) {
+  return (
+    <Link
+      to={href}
+      className="flex items-center space-x-2 rounded-md px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+    >
+      {icon}
+      <span>{text}</span>
+    </Link>
+  );
+}
 
 export function DashboardSidebar() {
-  const { data: session } = useSession();
-  const router = useRouter();
-  
   return (
     <Sidebar className="border-r lg:border-r lg:block">
       <div className="space-y-4 py-4">
@@ -34,21 +50,21 @@ export function DashboardSidebar() {
             <DropdownMenuTrigger asChild>
               <button className="flex items-center space-x-2">
                 <Avatar>
-                  <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "Avatar"} />
-                  <AvatarFallback>{session?.user?.name?.charAt(0) || "U"}</AvatarFallback>
+                  <AvatarImage src="" alt="User Avatar" />
+                  <AvatarFallback>U</AvatarFallback>
                 </Avatar>
-                <span className="font-medium">{session?.user?.name}</span>
+                <span className="font-medium">User</span>
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => router.push('/profile')}>
+              <DropdownMenuItem onClick={() => window.location.href = '/profile'}>
                 <Settings className="mr-2 h-4 w-4" />
                 Profile
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
+              <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -98,6 +114,11 @@ export function DashboardSidebar() {
               icon={<Clock className="h-4 w-4" />}
               href="/payments"
               text="Payments"
+            />
+            <SidebarItem
+              icon={<Plane className="h-4 w-4" />}
+              href="/luxury-travel"
+              text="Luxury Travel"
             />
           </div>
         </div>

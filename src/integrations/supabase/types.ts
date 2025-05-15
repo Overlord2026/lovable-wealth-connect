@@ -542,6 +542,98 @@ export type Database = {
         }
         Relationships: []
       }
+      luxury_travel_bookings: {
+        Row: {
+          booking_date: string
+          created_at: string
+          id: string
+          passengers: number
+          special_requests: string | null
+          status: string
+          total_price: number
+          travel_option_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          booking_date: string
+          created_at?: string
+          id?: string
+          passengers?: number
+          special_requests?: string | null
+          status?: string
+          total_price: number
+          travel_option_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          booking_date?: string
+          created_at?: string
+          id?: string
+          passengers?: number
+          special_requests?: string | null
+          status?: string
+          total_price?: number
+          travel_option_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "luxury_travel_bookings_travel_option_id_fkey"
+            columns: ["travel_option_id"]
+            isOneToOne: false
+            referencedRelation: "luxury_travel_options"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      luxury_travel_options: {
+        Row: {
+          available_from: string
+          available_to: string
+          created_at: string
+          description: string
+          duration: string
+          id: string
+          image_url: string | null
+          location: string
+          name: string
+          price: number
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          available_from?: string
+          available_to: string
+          created_at?: string
+          description: string
+          duration: string
+          id?: string
+          image_url?: string | null
+          location: string
+          name: string
+          price: number
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          available_from?: string
+          available_to?: string
+          created_at?: string
+          description?: string
+          duration?: string
+          id?: string
+          image_url?: string | null
+          location?: string
+          name?: string
+          price?: number
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       partner_api_mappings: {
         Row: {
           id: string
