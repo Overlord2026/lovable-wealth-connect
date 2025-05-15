@@ -24,7 +24,14 @@ export async function fetchUserBudget(userId: string): Promise<Budget | null> {
   try {
     const { data, error } = await supabase
       .from('budgets')
-      .select('*')
+      .select(`
+        id,
+        user_id,
+        name,
+        total_income as total_amount,
+        created_at,
+        updated_at
+      `)
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
       .limit(1)
@@ -42,7 +49,14 @@ export async function fetchBudgetCategories(budgetId: string): Promise<BudgetCat
   try {
     const { data, error } = await supabase
       .from('budget_categories')
-      .select('*')
+      .select(`
+        id,
+        budget_id,
+        name,
+        amount as allocated_amount,
+        created_at,
+        updated_at
+      `)
       .eq('budget_id', budgetId)
       .order('allocated_amount', { ascending: false });
       
@@ -56,29 +70,36 @@ export async function fetchBudgetCategories(budgetId: string): Promise<BudgetCat
 
 export async function createSampleBudget(userId: string): Promise<Budget | null> {
   try {
-    // Insert budget with total_amount
+    // Insert budget with total_income instead of total_amount
     const { data: budget, error: budgetError } = await supabase
       .from('budgets')
       .insert({
         user_id: userId,
         name: 'Monthly Budget',
-        total_amount: 5000
+        total_income: 5000
       })
-      .select()
+      .select(`
+        id,
+        user_id,
+        name,
+        total_income as total_amount,
+        created_at,
+        updated_at
+      `)
       .single();
       
     if (budgetError) throw budgetError;
     
     if (budget) {
-      // Insert categories with allocated_amount
+      // Insert categories with amount instead of allocated_amount
       const categories = [
-        { budget_id: budget.id, name: 'Housing', allocated_amount: 1500 },
-        { budget_id: budget.id, name: 'Food', allocated_amount: 800 },
-        { budget_id: budget.id, name: 'Transportation', allocated_amount: 400 },
-        { budget_id: budget.id, name: 'Entertainment', allocated_amount: 300 },
-        { budget_id: budget.id, name: 'Utilities', allocated_amount: 500 },
-        { budget_id: budget.id, name: 'Savings', allocated_amount: 1000 },
-        { budget_id: budget.id, name: 'Miscellaneous', allocated_amount: 500 }
+        { budget_id: budget.id, name: 'Housing', amount: 1500, type: 'expense', color: '#1e40af' },
+        { budget_id: budget.id, name: 'Food', amount: 800, type: 'expense', color: '#15803d' },
+        { budget_id: budget.id, name: 'Transportation', amount: 400, type: 'expense', color: '#b45309' },
+        { budget_id: budget.id, name: 'Entertainment', amount: 300, type: 'expense', color: '#be185d' },
+        { budget_id: budget.id, name: 'Utilities', amount: 500, type: 'expense', color: '#4f46e5' },
+        { budget_id: budget.id, name: 'Savings', amount: 1000, type: 'savings', color: '#047857' },
+        { budget_id: budget.id, name: 'Miscellaneous', amount: 500, type: 'expense', color: '#7c3aed' }
       ];
       
       const { error: categoriesError } = await supabase
