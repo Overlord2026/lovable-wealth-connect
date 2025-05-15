@@ -49,8 +49,8 @@ export function Header() {
   };
 
   return (
-    <header className={`fixed w-full z-5 transition-all duration-300 ${
-      isScrolled ? 'bg-[#1B1E2E]/90 backdrop-blur-md shadow-md' : 'bg-[#1B1E2E]'
+    <header className={`fixed w-full z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-[#1B1E2E]/90 backdrop-blur-md shadow-md' : 'bg-[#1B1E2E] shadow-sm'
     }`}>
       <div className="container flex items-center justify-between py-4">
         <div className="flex items-center gap-2">
@@ -70,7 +70,7 @@ export function Header() {
                 <span className="sr-only">Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] z-50">
               <div className="flex flex-col h-full">
                 <div className="py-6 border-b">
                   <span className="font-serif text-xl font-semibold text-neutral-300">Wealth<span className="text-[#00B8BF]">Connect</span></span>
@@ -150,7 +150,7 @@ export function Header() {
               <div className="hidden md:flex items-center gap-4">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center gap-2">
+                    <Button variant="ghost" className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-[#25293F]">
                       <div className="h-8 w-8 rounded-full bg-navy-100 flex items-center justify-center text-neutral-300">
                         <User size={16} />
                       </div>
@@ -158,13 +158,13 @@ export function Header() {
                       <ChevronDown className="h-4 w-4 text-neutral-300" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuContent align="end" className="w-56 bg-[#25293F] border-border text-neutral-300">
                     <div className="px-2 py-2 text-sm text-muted-foreground">
                       <p>{user.email}</p>
                     </div>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                      <Link to="/profile" className="cursor-pointer">My Profile</Link>
+                      <Link to="/profile" className="cursor-pointer hover:text-white">My Profile</Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem 
@@ -180,7 +180,7 @@ export function Header() {
             ) : (
               <div className="hidden md:flex items-center gap-4">
                 <Link to="/login">
-                  <Button variant="ghost" className="text-neutral-300">Sign In</Button>
+                  <Button variant="ghost" className="text-neutral-300 hover:text-white hover:bg-[#25293F]">Sign In</Button>
                 </Link>
                 <Link to="/register">
                   <Button className="bg-[#00B8BF] text-white hover:bg-[#00B8BF]/90">Get Started</Button>

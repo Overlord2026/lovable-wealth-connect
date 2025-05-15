@@ -86,11 +86,10 @@ export function AdvisorSection() {
           {specialties.map((specialty) => (
             <Button
               key={specialty}
-              variant={selectedSpecialty === specialty || (specialty === "All" && !selectedSpecialty) ? "default" : "outline"}
+              onClick={() => setSelectedSpecialty(specialty === "All" ? null : specialty)}
               className={selectedSpecialty === specialty || (specialty === "All" && !selectedSpecialty) 
                 ? "bg-[#00B8BF] text-white font-semibold shadow-sm" 
                 : "bg-neutral-800 text-neutral-300 hover:text-[#00B8BF] border-[#00B8BF]/20"}
-              onClick={() => setSelectedSpecialty(specialty === "All" ? null : specialty)}
             >
               {specialty}
             </Button>

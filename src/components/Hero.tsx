@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -15,13 +16,17 @@ export function Hero() {
             Connect with top financial advisors tailored to your needs. Build wealth, plan your retirement, and achieve your financial goals with confidence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button className="premium-gradient text-white text-lg px-8 py-6 rounded-md flex items-center gap-2 group hover-glow">
-              Find an Advisor
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button variant="outline" className="border-border text-foreground hover:bg-secondary text-lg px-8 py-6 rounded-md bg-secondary/20 backdrop-blur-sm">
-              Learn More
-            </Button>
+            <Link to="/advisors">
+              <Button className="premium-gradient text-white text-lg px-8 py-6 rounded-md flex items-center gap-2 group hover-glow">
+                Find an Advisor
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Link to="#solutions">
+              <Button variant="outline" className="border-border text-foreground hover:bg-secondary text-lg px-8 py-6 rounded-md bg-secondary/20 backdrop-blur-sm">
+                Learn More
+              </Button>
+            </Link>
           </div>
           
           <div className="mt-16 pt-8 border-t border-border/20">
