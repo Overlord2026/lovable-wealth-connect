@@ -6,13 +6,31 @@ interface User {
   id: string;
   email: string;
   name: string;
+  userType?: "client" | "professional";
   financialGoals?: string[];
+  professionalData?: ProfessionalData;
+}
+
+interface ProfessionalData {
+  professionalType: string;
+  licenseNumber: string;
+  expertise: string[];
+  certifications: string[];
+  region: string;
+  bio: string;
+  isVerified: boolean;
 }
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  register: (email: string, password: string, name: string, financialGoals?: string[]) => Promise<void>;
+  register: (
+    email: string, 
+    password: string, 
+    name: string, 
+    financialGoals?: string[],
+    professionalData?: ProfessionalData
+  ) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -36,26 +54,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(false);
   }, []);
 
-  // Mock registration functionality (to be replaced with Supabase)
-  const register = async (email: string, password: string, name: string, financialGoals: string[] = []) => {
+  // Register functionality (now supports professional registration)
+  const register = async (
+    email: string, 
+    password: string, 
+    name: string, 
+    financialGoals: string[] = [],
+    professionalData?: ProfessionalData
+  ) => {
     setLoading(true);
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Create a mock user
-      const newUser = {
+      // Create a user based on type
+      const newUser: User = {
         id: `user_${Date.now()}`,
         email,
         name,
-        financialGoals
+        userType: professionalData ? "professional" : "client",
+        financialGoals: professionalData ? [] : financialGoals,
+        professionalData
       };
       
       // Store in localStorage (temporary until Supabase)
       localStorage.setItem('wealthconnect_user', JSON.stringify(newUser));
       setUser(newUser);
       
-      toast.success("Registration successful!");
+      const successMessage = professionalData 
+        ? "Professional registration submitted for verification"
+        : "Registration successful!";
+        
+      toast.success(successMessage);
     } catch (error) {
       console.error("Registration error:", error);
       toast.error("Registration failed. Please try again.");
@@ -82,6 +112,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: `user_${Date.now()}`,
         email,
         name: email.split('@')[0], // Temporary name based on email
+        userType: "client",
         financialGoals: []
       };
       

@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Loans from "./pages/Loans";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import VerificationPending from "./pages/VerificationPending";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { MobileNav } from "./components/MobileNav";
@@ -26,6 +27,7 @@ function AppRoutes() {
         <Route path="/loans" element={<Loans />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/verification-pending" element={<VerificationPending />} />
         <Route path="/profile" element={<Profile />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />

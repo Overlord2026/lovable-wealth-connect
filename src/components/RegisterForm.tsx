@@ -83,12 +83,7 @@ export function RegisterForm() {
   }
 
   return (
-    <div className="mx-auto max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-      <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-wealth-900">Create an Account</h1>
-        <p className="text-sm text-wealth-600 mt-1">Join WealthConnect to find your perfect financial advisor</p>
-      </div>
-
+    <div className="mx-auto max-w-md w-full p-6 bg-white/5 backdrop-blur-md rounded-lg shadow-xl border border-wealth-800/20">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -117,36 +112,39 @@ export function RegisterForm() {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="••••••••" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="••••••••" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="••••••••" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="••••••••" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <div className="space-y-2">
             <h3 className="text-md font-medium">Financial Goals</h3>
-            <p className="text-sm text-wealth-600">What are you interested in?</p>
+            <p className="text-sm text-wealth-400">What are you interested in?</p>
             
             <div className="flex flex-wrap gap-4">
               <FormField
@@ -160,7 +158,7 @@ export function RegisterForm() {
                         onCheckedChange={field.onChange} 
                       />
                     </FormControl>
-                    <FormLabel className="cursor-pointer">Retirement Planning</FormLabel>
+                    <FormLabel className="cursor-pointer text-wealth-300">Retirement Planning</FormLabel>
                   </FormItem>
                 )}
               />
@@ -176,7 +174,7 @@ export function RegisterForm() {
                         onCheckedChange={field.onChange} 
                       />
                     </FormControl>
-                    <FormLabel className="cursor-pointer">Estate Planning</FormLabel>
+                    <FormLabel className="cursor-pointer text-wealth-300">Estate Planning</FormLabel>
                   </FormItem>
                 )}
               />
@@ -192,7 +190,7 @@ export function RegisterForm() {
                         onCheckedChange={field.onChange} 
                       />
                     </FormControl>
-                    <FormLabel className="cursor-pointer">Investment Management</FormLabel>
+                    <FormLabel className="cursor-pointer text-wealth-300">Investment Management</FormLabel>
                   </FormItem>
                 )}
               />
@@ -208,7 +206,7 @@ export function RegisterForm() {
                         onCheckedChange={field.onChange} 
                       />
                     </FormControl>
-                    <FormLabel className="cursor-pointer">Tax Planning</FormLabel>
+                    <FormLabel className="cursor-pointer text-wealth-300">Tax Planning</FormLabel>
                   </FormItem>
                 )}
               />
@@ -227,8 +225,8 @@ export function RegisterForm() {
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel className="cursor-pointer">
-                    I agree to the <a href="/terms" className="text-wealth-800 underline">Terms of Service</a> and <a href="/privacy" className="text-wealth-800 underline">Privacy Policy</a>
+                  <FormLabel className="cursor-pointer text-wealth-300">
+                    I agree to the <a href="/terms" className="text-wealth-400 underline">Terms of Service</a> and <a href="/privacy" className="text-wealth-400 underline">Privacy Policy</a>
                   </FormLabel>
                   <FormMessage />
                 </div>
@@ -247,7 +245,7 @@ export function RegisterForm() {
       </Form>
       
       <div className="mt-4 text-center text-sm">
-        <p>Already have an account? <a href="/login" className="text-wealth-800 hover:underline">Sign in</a></p>
+        <p className="text-wealth-400">Already have an account? <a href="/login" className="text-wealth-300 hover:underline">Sign in</a></p>
       </div>
     </div>
   );

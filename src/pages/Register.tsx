@@ -1,14 +1,50 @@
 
+import { useState } from "react";
 import { RegisterForm } from "@/components/RegisterForm";
+import { ProfessionalRegisterForm } from "@/components/ProfessionalRegisterForm";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { UserCheck, Briefcase } from "lucide-react";
 
 export default function Register() {
+  const [activeTab, setActiveTab] = useState("client");
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow flex items-center justify-center bg-gray-50 py-12 px-4">
-        <RegisterForm />
+        <div className="w-full max-w-md">
+          <Tabs 
+            defaultValue="client" 
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-full"
+          >
+            <TabsList className="grid grid-cols-2 mb-6 w-full">
+              <TabsTrigger value="client" className="flex items-center justify-center gap-2">
+                <UserCheck className="h-4 w-4" />
+                <span>Client</span>
+              </TabsTrigger>
+              <TabsTrigger value="professional" className="flex items-center justify-center gap-2">
+                <Briefcase className="h-4 w-4" /> 
+                <span>Professional</span>
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="client" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
+              <div className="text-center mb-4">
+                <h1 className="text-2xl font-bold text-wealth-900">Create a Client Account</h1>
+                <p className="text-sm text-wealth-600 mt-1">Join WealthConnect to find your perfect financial advisor</p>
+              </div>
+              <RegisterForm />
+            </TabsContent>
+            
+            <TabsContent value="professional" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
+              <ProfessionalRegisterForm />
+            </TabsContent>
+          </Tabs>
+        </div>
       </main>
       <Footer />
     </div>
