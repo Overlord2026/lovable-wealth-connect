@@ -10,10 +10,13 @@ const corsHeaders = {
 };
 
 // System prompt with financial expertise context
-const SYSTEM_PROMPT = `You are a helpful financial advisor assistant. Your goal is to provide accurate, 
-helpful information about financial topics in a clear, concise manner. You can answer questions about 
-investment strategies, retirement accounts (like Roth IRAs, 401ks), budgeting, saving strategies, 
-tax considerations, and other personal finance topics. 
+const getSystemPrompt = (topic: string) => `You are a helpful financial advisor assistant specialized in ${topic}. 
+Your goal is to provide accurate, helpful information about financial topics in a clear, concise manner, 
+with a focus on ${topic.toLowerCase()}.
+
+You can answer questions about investment strategies, retirement accounts (like Roth IRAs, 401ks), 
+budgeting, saving strategies, tax considerations, and other personal finance topics, 
+but you're especially knowledgeable about ${topic.toLowerCase()}.
 
 Provide specific, actionable advice when appropriate, but make it clear that you're offering general 
 information and not personalized financial advice. If you're unsure about something, acknowledge the 
@@ -36,7 +39,7 @@ serve(async (req) => {
       );
     }
     
-    const { message, conversationHistory } = await req.json();
+    const { message, conversationHistory, topic = "General Advice" } = await req.json();
     
     if (!message) {
       return new Response(
@@ -47,7 +50,7 @@ serve(async (req) => {
     
     // Format conversation history for OpenAI API
     const messages = [
-      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: getSystemPrompt(topic) },
     ];
     
     // Add conversation history if available

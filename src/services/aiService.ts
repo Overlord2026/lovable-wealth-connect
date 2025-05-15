@@ -2,16 +2,19 @@
 import { supabase } from "@/integrations/supabase/client";
 import { Message } from "@/hooks/useConversation";
 import { toast } from "@/components/ui/sonner";
+import { FinancialTopic } from "@/components/chat/TopicSelector";
 
 export async function getAIResponse(
   userMessage: string,
-  conversationHistory: Message[]
+  conversationHistory: Message[],
+  topic: FinancialTopic = "General Advice"
 ): Promise<string | null> {
   try {
     const { data, error } = await supabase.functions.invoke('ai-financial-advisor', {
       body: {
         message: userMessage,
         conversationHistory,
+        topic,
       },
     });
     

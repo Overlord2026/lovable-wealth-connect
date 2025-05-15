@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
 import { v4 as uuidv4 } from "uuid";
+import { FinancialTopic } from "@/components/chat/TopicSelector";
 import { User } from "@supabase/supabase-js";
 
 export interface Message {
@@ -16,6 +17,7 @@ export function useConversation(user: User | null) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [topic, setTopic] = useState<FinancialTopic>("General Advice");
 
   // Create a new conversation if needed
   useEffect(() => {
@@ -36,7 +38,7 @@ export function useConversation(user: User | null) {
     if (messages.length === 0 && conversationId && !isLoading) {
       const welcomeMessage = {
         id: "welcome-" + Date.now(),
-        content: "Hello! I'm your AI financial advisor. How can I assist you today? You can ask me about topics like retirement accounts, investment strategies, or budgeting tips.",
+        content: `Hello! I'm your AI financial advisor focused on ${topic}. How can I assist you today? Feel free to ask me any questions about ${topic.toLowerCase()}.`,
         is_assistant: true,
         created_at: new Date().toISOString(),
       };
@@ -47,14 +49,14 @@ export function useConversation(user: User | null) {
         }
       });
     }
-  }, [conversationId, messages.length, isLoading]);
+  }, [conversationId, messages.length, isLoading, topic]);
   
   async function createNewConversation() {
     try {
       const { data, error } = await supabase
         .from("chat_conversations")
         .insert({
-          title: "New Conversation",
+          title: `${topic} Conversation`,
           user_id: user?.id
         })
         .select("id")
@@ -117,7 +119,7 @@ export function useConversation(user: User | null) {
     }
   }
 
-  // New function to clear conversation and start a new one
+  // Function to clear conversation and start a new one with the current topic
   async function clearConversation() {
     setIsLoading(true);
     setMessages([]);
@@ -130,6 +132,12 @@ export function useConversation(user: User | null) {
     setIsLoading(false);
   }
 
+  // Function to change the topic and start a new conversation
+  async function changeTopic(newTopic: FinancialTopic) {
+    setTopic(newTopic);
+    await clearConversation();
+  }
+
   return {
     messages,
     setMessages,
@@ -137,6 +145,8 @@ export function useConversation(user: User | null) {
     isLoading,
     setIsLoading,
     saveMessage,
-    clearConversation
+    clearConversation,
+    topic,
+    changeTopic
   };
 }
