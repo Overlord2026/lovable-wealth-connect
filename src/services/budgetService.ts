@@ -58,7 +58,7 @@ export async function fetchBudgetCategories(budgetId: string): Promise<BudgetCat
         updated_at
       `)
       .eq('budget_id', budgetId)
-      .order('allocated_amount', { ascending: false });
+      .order('amount', { ascending: false });
       
     if (error) throw error;
     return data || [];
