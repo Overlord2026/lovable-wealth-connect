@@ -49,8 +49,8 @@ export function Header() {
   };
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm' : 'bg-[#1B1E2E]'
+    <header className={`fixed w-full z-5 transition-all duration-300 ${
+      isScrolled ? 'bg-[#1B1E2E]/90 backdrop-blur-md shadow-sm' : 'bg-[#1B1E2E]'
     }`}>
       <div className="container flex items-center justify-between py-4">
         <div className="flex items-center gap-2">

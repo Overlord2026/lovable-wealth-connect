@@ -4,13 +4,14 @@ import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
-    <div className="hero-gradient min-h-screen flex items-center text-foreground pt-16">
-      <div className="container mx-auto px-4">
+    <div className="hero-gradient min-h-screen flex items-center text-foreground pt-16 relative">
+      <div className="hero-overlay"></div>
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl animate-fade-in">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight hero-title">
             Secure your financial future with <span className="text-accent text-glow">expert guidance</span>
           </h1>
-          <p className="text-lg md:text-xl mb-10 text-muted-foreground/90 max-w-2xl leading-relaxed">
+          <p className="text-lg md:text-xl mb-10 text-muted-foreground/90 max-w-2xl leading-relaxed hero-text">
             Connect with top financial advisors tailored to your needs. Build wealth, plan your retirement, and achieve your financial goals with confidence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
