@@ -11,6 +11,7 @@ import {
   Settings,
   User,
   Bot,
+  WalletCards,
 } from "lucide-react";
 
 export function DashboardSidebar() {
@@ -20,6 +21,7 @@ export function DashboardSidebar() {
     { name: "Overview", icon: Home, path: "/dashboard" },
     { name: "AI Advisor", icon: Bot, path: "/ai-advisor" },
     { name: "Accounts", icon: CreditCard, path: "/accounts" },
+    { name: "Payments", icon: WalletCards, path: "/payments" },
     { name: "Budgeting", icon: PieChart, path: "/budget" },
     { name: "Investments", icon: ChartBar, path: "/investments" },
     { name: "Financial Goals", icon: DollarSign, path: "/goals" },

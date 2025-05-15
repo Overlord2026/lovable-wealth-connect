@@ -288,6 +288,9 @@ export type Database = {
           last_updated: string | null
           metadata: Json | null
           name: string
+          plaid_account_id: string | null
+          plaid_item_id: string | null
+          sync_status: string | null
           updated_at: string | null
           user_id: string
         }
@@ -303,6 +306,9 @@ export type Database = {
           last_updated?: string | null
           metadata?: Json | null
           name: string
+          plaid_account_id?: string | null
+          plaid_item_id?: string | null
+          sync_status?: string | null
           updated_at?: string | null
           user_id: string
         }
@@ -318,10 +324,21 @@ export type Database = {
           last_updated?: string | null
           metadata?: Json | null
           name?: string
+          plaid_account_id?: string | null
+          plaid_item_id?: string | null
+          sync_status?: string | null
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "financial_accounts_plaid_item_id_fkey"
+            columns: ["plaid_item_id"]
+            isOneToOne: false
+            referencedRelation: "plaid_items"
+            referencedColumns: ["plaid_item_id"]
+          },
+        ]
       }
       integration_projects: {
         Row: {
@@ -514,6 +531,69 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      plaid_items: {
+        Row: {
+          access_token: string
+          created_at: string | null
+          id: string
+          institution_id: string | null
+          institution_name: string | null
+          last_updated: string | null
+          plaid_item_id: string
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token: string
+          created_at?: string | null
+          id?: string
+          institution_id?: string | null
+          institution_name?: string | null
+          last_updated?: string | null
+          plaid_item_id: string
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string
+          created_at?: string | null
+          id?: string
+          institution_id?: string | null
+          institution_name?: string | null
+          last_updated?: string | null
+          plaid_item_id?: string
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      plaid_link_tokens: {
+        Row: {
+          created_at: string | null
+          expires_at: string
+          id: string
+          link_token: string
+          metadata: Json | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at: string
+          id?: string
+          link_token: string
+          metadata?: Json | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string
+          id?: string
+          link_token?: string
+          metadata?: Json | null
+          user_id?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -721,6 +801,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      clean_expired_link_tokens: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       has_role: {
         Args: { user_id: string; role: Database["public"]["Enums"]["app_role"] }
         Returns: boolean
