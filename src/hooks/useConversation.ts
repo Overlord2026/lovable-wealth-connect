@@ -117,12 +117,26 @@ export function useConversation(user: User | null) {
     }
   }
 
+  // New function to clear conversation and start a new one
+  async function clearConversation() {
+    setIsLoading(true);
+    setMessages([]);
+    setConversationId(null);
+    
+    if (user) {
+      await createNewConversation();
+    }
+    
+    setIsLoading(false);
+  }
+
   return {
     messages,
     setMessages,
     conversationId,
     isLoading,
     setIsLoading,
-    saveMessage
+    saveMessage,
+    clearConversation
   };
 }
