@@ -143,6 +143,35 @@ export type Database = {
           },
         ]
       }
+      content_tags: {
+        Row: {
+          content_id: string
+          created_at: string
+          id: string
+          tag: string
+        }
+        Insert: {
+          content_id: string
+          created_at?: string
+          id?: string
+          tag: string
+        }
+        Update: {
+          content_id?: string
+          created_at?: string
+          id?: string
+          tag?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_tags_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "educational_content"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       document_shares: {
         Row: {
           created_at: string
@@ -247,6 +276,54 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      educational_content: {
+        Row: {
+          category: string
+          content: string
+          content_type: string
+          created_at: string
+          id: string
+          is_featured: boolean
+          reading_time: number
+          slug: string
+          summary: string
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          content: string
+          content_type: string
+          created_at?: string
+          id?: string
+          is_featured?: boolean
+          reading_time?: number
+          slug: string
+          summary: string
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          content_type?: string
+          created_at?: string
+          id?: string
+          is_featured?: boolean
+          reading_time?: number
+          slug?: string
+          summary?: string
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       feedback: {
         Row: {

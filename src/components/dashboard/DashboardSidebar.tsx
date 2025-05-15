@@ -1,79 +1,107 @@
-
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Sidebar, SidebarItem } from "@/components/ui/sidebar";
+import { useSession, signOut } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  LayoutDashboard,
-  CreditCard,
-  PieChart,
-  MessageSquarePlus,
-  User,
-  Wallet,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { 
+  Home, 
+  PieChart, 
+  MessageCircle, 
+  User, 
+  CreditCard, 
+  Clock, 
+  BookOpen
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Settings } from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 export function DashboardSidebar() {
-  const links = [
-    {
-      href: "/dashboard",
-      label: "Dashboard",
-      icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
-    },
-    {
-      href: "/budget",
-      label: "Budget",
-      icon: <PieChart className="mr-2 h-4 w-4" />,
-    },
-    {
-      href: "/payments",
-      label: "Payments",
-      icon: <CreditCard className="mr-2 h-4 w-4" />,
-    },
-    {
-      href: "/loans",
-      label: "Loans",
-      icon: <Wallet className="mr-2 h-4 w-4" />,
-    },
-    {
-      href: "/ai-advisor",
-      label: "AI Advisor",
-      icon: <MessageSquarePlus className="mr-2 h-4 w-4" />,
-    },
-    {
-      href: "/profile",
-      label: "Profile",
-      icon: <User className="mr-2 h-4 w-4" />,
-    },
-  ];
-
+  const { data: session } = useSession();
+  const router = useRouter();
+  
   return (
-    <div className="w-full lg:w-64 mb-6 lg:mb-0">
-      <div className="bg-sidebar-background border border-sidebar-border rounded-lg overflow-hidden">
+    <Sidebar className="border-r lg:border-r lg:block">
+      <div className="space-y-4 py-4">
         <div className="px-3 py-2">
-          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight text-sidebar-foreground">
-            Dashboard
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center space-x-2">
+                <Avatar>
+                  <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "Avatar"} />
+                  <AvatarFallback>{session?.user?.name?.charAt(0) || "U"}</AvatarFallback>
+                </Avatar>
+                <span className="font-medium">{session?.user?.name}</span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => router.push('/profile')}>
+                <Settings className="mr-2 h-4 w-4" />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <div className="px-3 py-2">
+          <div className="space-y-1">
+            <h2 className="mb-2 px-4 text-xl font-semibold tracking-tight">
+              Dashboard
+            </h2>
+            <SidebarItem
+              icon={<Home className="h-4 w-4" />}
+              href="/dashboard"
+              text="Overview"
+            />
+            <SidebarItem
+              icon={<PieChart className="h-4 w-4" />}
+              href="/budget"
+              text="Budget"
+            />
+            <SidebarItem
+              icon={<BookOpen className="h-4 w-4" />}
+              href="/education"
+              text="Education"
+            />
+            <SidebarItem
+              icon={<MessageCircle className="h-4 w-4" />}
+              href="/ai-advisor"
+              text="AI Advisor"
+            />
+            <SidebarItem
+              icon={<User className="h-4 w-4" />}
+              href="/profile"
+              text="Profile"
+            />
+          </div>
+        </div>
+        <div className="px-3 py-2">
+          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+            Financial Tools
           </h2>
           <div className="space-y-1">
-            {links.map((link) => (
-              <NavLink
-                key={link.href}
-                to={link.href}
-                className={({ isActive }) =>
-                  cn(
-                    "flex items-center rounded-md px-4 py-2 text-sm font-medium",
-                    isActive
-                      ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
-                  )
-                }
-                end
-              >
-                {link.icon}
-                {link.label}
-              </NavLink>
-            ))}
+            <SidebarItem
+              icon={<CreditCard className="h-4 w-4" />}
+              href="/loans"
+              text="Loans"
+            />
+            <SidebarItem
+              icon={<Clock className="h-4 w-4" />}
+              href="/payments"
+              text="Payments"
+            />
           </div>
         </div>
       </div>
-    </div>
+    </Sidebar>
   );
 }

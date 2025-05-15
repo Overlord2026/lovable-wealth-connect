@@ -1,63 +1,106 @@
-
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/contexts/AuthContext";
-import { useIsMobile } from "@/hooks/use-mobile";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Toaster } from "@/components/ui/toaster"
+import { AuthProvider } from "./contexts/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import Index from "./pages/Index";
-import Loans from "./pages/Loans";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import VerificationPending from "./pages/VerificationPending";
-import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
-import AiAdvisor from "./pages/AiAdvisor";
-import Payments from "./pages/Payments";
 import Budget from "./pages/Budget";
+import AiAdvisor from "./pages/AiAdvisor";
+import Profile from "./pages/Profile";
+import Loans from "./pages/Loans";
+import Payments from "./pages/Payments";
+import VerificationPending from "./pages/VerificationPending";
 import NotFound from "./pages/NotFound";
-import { MobileNav } from "./components/MobileNav";
+import Education from "./pages/Education";
+import ContentDetail from "./pages/ContentDetail";
 
-const queryClient = new QueryClient();
+function App() {
+  const [loading, setLoading] = useState(true);
 
-function AppRoutes() {
-  const isMobile = useIsMobile();
-  
+  useEffect(() => {
+    // Simulate loading
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
   return (
-    <>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/loans" element={<Loans />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/budget"
+          element={
+            <ProtectedRoute>
+              <Budget />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/education"
+          element={
+            <ProtectedRoute>
+              <Education />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/education/:slug"
+          element={
+            <ProtectedRoute>
+              <ContentDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ai-advisor"
+          element={
+            <ProtectedRoute>
+              <AiAdvisor />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/loans"
+          element={
+            <ProtectedRoute>
+              <Loans />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payments"
+          element={
+            <ProtectedRoute>
+              <Payments />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/verification-pending" element={<VerificationPending />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/ai-advisor" element={<AiAdvisor />} />
-        <Route path="/payments" element={<Payments />} />
-        <Route path="/budget" element={<Budget />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-      
-      {isMobile && <MobileNav />}
-    </>
+      <Toaster />
+    </AuthProvider>
   );
 }
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner position="top-center" />
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </TooltipProvider>
-    </AuthProvider>
-  </QueryClientProvider>
-);
 
 export default App;
