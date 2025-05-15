@@ -1,76 +1,77 @@
 
-import { Link } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import {
-  ChartBar,
+  LayoutDashboard,
   CreditCard,
-  DollarSign,
-  FileText,
-  Home,
   PieChart,
-  Settings,
+  MessageSquarePlus,
   User,
-  Bot,
-  WalletCards,
+  Wallet,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function DashboardSidebar() {
-  const { user } = useAuth();
-  
-  const menuItems = [
-    { name: "Overview", icon: Home, path: "/dashboard" },
-    { name: "AI Advisor", icon: Bot, path: "/ai-advisor" },
-    { name: "Accounts", icon: CreditCard, path: "/accounts" },
-    { name: "Payments", icon: WalletCards, path: "/payments" },
-    { name: "Budgeting", icon: PieChart, path: "/budget" },
-    { name: "Investments", icon: ChartBar, path: "/investments" },
-    { name: "Financial Goals", icon: DollarSign, path: "/goals" },
-    { name: "Documents", icon: FileText, path: "/documents" },
-    { name: "Profile", icon: User, path: "/profile" },
-    { name: "Settings", icon: Settings, path: "/settings" }
+  const links = [
+    {
+      href: "/dashboard",
+      label: "Dashboard",
+      icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
+    },
+    {
+      href: "/budget",
+      label: "Budget",
+      icon: <PieChart className="mr-2 h-4 w-4" />,
+    },
+    {
+      href: "/payments",
+      label: "Payments",
+      icon: <CreditCard className="mr-2 h-4 w-4" />,
+    },
+    {
+      href: "/loans",
+      label: "Loans",
+      icon: <Wallet className="mr-2 h-4 w-4" />,
+    },
+    {
+      href: "/ai-advisor",
+      label: "AI Advisor",
+      icon: <MessageSquarePlus className="mr-2 h-4 w-4" />,
+    },
+    {
+      href: "/profile",
+      label: "Profile",
+      icon: <User className="mr-2 h-4 w-4" />,
+    },
   ];
-  
+
   return (
-    <div className="w-full lg:w-64 bg-white rounded-lg shadow p-6">
-      <div className="flex items-center space-x-4 mb-6">
-        <div className="h-12 w-12 rounded-full bg-navy-100 flex items-center justify-center text-navy-800">
-          <User size={24} />
-        </div>
-        <div>
-          <p className="font-medium text-navy-900">{user?.name || "User"}</p>
-          <p className="text-sm text-navy-600 truncate max-w-[150px]">{user?.email}</p>
-        </div>
-      </div>
-      
-      <div className="mt-8">
-        <nav className="space-y-1">
-          {menuItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`flex items-center px-3 py-3 rounded-md transition-colors
-                ${(window.location.pathname === item.path)
-                  ? 'bg-wealth-700/10 text-wealth-700'
-                  : 'text-gray-700 hover:bg-gray-100'}
-              `}
-            >
-              <item.icon className="h-5 w-5 mr-3" />
-              <span>{item.name}</span>
-            </Link>
-          ))}
-        </nav>
-      </div>
-      
-      <div className="mt-auto pt-8 border-t border-gray-200 mt-8">
-        <div className="bg-blue-50 p-4 rounded-lg">
-          <h3 className="font-medium text-blue-800">Need help?</h3>
-          <p className="text-sm text-blue-600 mt-1">Connect with an advisor</p>
-          <Link
-            to="/advisors"
-            className="mt-3 block text-sm font-medium text-blue-700 hover:underline"
-          >
-            Find an Advisor →
-          </Link>
+    <div className="w-full lg:w-64 mb-6 lg:mb-0">
+      <div className="bg-sidebar-background border border-sidebar-border rounded-lg overflow-hidden">
+        <div className="px-3 py-2">
+          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight text-sidebar-foreground">
+            Dashboard
+          </h2>
+          <div className="space-y-1">
+            {links.map((link) => (
+              <NavLink
+                key={link.href}
+                to={link.href}
+                className={({ isActive }) =>
+                  cn(
+                    "flex items-center rounded-md px-4 py-2 text-sm font-medium",
+                    isActive
+                      ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+                  )
+                }
+                end
+              >
+                {link.icon}
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
         </div>
       </div>
     </div>

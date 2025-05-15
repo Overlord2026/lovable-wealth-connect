@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import AiAdvisor from "./pages/AiAdvisor";
 import Payments from "./pages/Payments";
+import Budget from "./pages/Budget";
 import NotFound from "./pages/NotFound";
 import { MobileNav } from "./components/MobileNav";
 
@@ -35,6 +36,7 @@ function AppRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/ai-advisor" element={<AiAdvisor />} />
         <Route path="/payments" element={<Payments />} />
+        <Route path="/budget" element={<Budget />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
