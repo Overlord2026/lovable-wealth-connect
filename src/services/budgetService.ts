@@ -66,52 +66,44 @@ export async function fetchBudgetCategories(budgetId: string): Promise<BudgetCat
   }
 }
 
-export async function createSampleBudget(userId: string): Promise<Budget | null> {
-  try {
-    // Insert budget with total_income instead of total_amount
-    const { data: budget, error: budgetError } = await supabase
-      .from('budgets')
-      .insert({
-        user_id: userId,
-        name: 'Monthly Budget',
-        total_income: 5000
-      })
-      .select(`
-        id,
-        user_id,
-        name,
-        total_amount:total_income,
-        created_at,
-        updated_at
-      `)
-      .single();
-      
-    if (budgetError) throw budgetError;
-    
-    if (budget) {
-      // Insert categories with amount instead of allocated_amount
-      const categories = [
-        { budget_id: budget.id, name: 'Housing', amount: 1500, type: 'expense', color: '#1e40af' },
-        { budget_id: budget.id, name: 'Food', amount: 800, type: 'expense', color: '#15803d' },
-        { budget_id: budget.id, name: 'Transportation', amount: 400, type: 'expense', color: '#b45309' },
-        { budget_id: budget.id, name: 'Entertainment', amount: 300, type: 'expense', color: '#be185d' },
-        { budget_id: budget.id, name: 'Utilities', amount: 500, type: 'expense', color: '#4f46e5' },
-        { budget_id: budget.id, name: 'Savings', amount: 1000, type: 'savings', color: '#047857' },
-        { budget_id: budget.id, name: 'Miscellaneous', amount: 500, type: 'expense', color: '#7c3aed' }
-      ];
-      
-      const { error: categoriesError } = await supabase
-        .from('budget_categories')
-        .insert(categories);
-        
-      if (categoriesError) throw categoriesError;
-    }
-    
-    toast.success("Sample budget created successfully!");
-    return budget;
-  } catch (error) {
-    console.error("Error creating sample budget:", error);
-    toast.error("Failed to create sample budget");
-    return null;
-  }
+export async function createSampleBudget(userId: string): Promise<{ budget: Budget; categories: BudgetCategory[] }> {
+  // 1) Insert the budget (write to total_income)
+  const { data: [budget], error: budgetError } = await supabase
+    .from('budgets')
+    .insert({
+      user_id: userId,
+      name: 'Monthly Sample Budget',
+      total_income: 5000         // write into total_income
+    })
+    .select(`
+      id,
+      user_id,
+      name,
+      total_amount:total_income, // alias back on return
+      created_at,
+      updated_at
+    `);
+
+  if (budgetError || !budget) throw budgetError;
+
+  // 2) Insert categories (write to amount and include type/color)
+  const sampleCategories = [
+    { budget_id: budget.id, name: 'Housing',         amount: 1500, type: 'expense',  color: '#1e40af' },
+    { budget_id: budget.id, name: 'Food',            amount:  600, type: 'expense',  color: '#15803d' },
+    { budget_id: budget.id, name: 'Saving',          amount: 1000, type: 'savings',  color: '#047857' },
+    { budget_id: budget.id, name: 'Entertainment',   amount:  300, type: 'expense',  color: '#be185d' },
+    { budget_id: budget.id, name: 'Utilities',       amount:  500, type: 'expense',  color: '#4f46e5' },
+    { budget_id: budget.id, name: 'Transportation',  amount:  400, type: 'expense',  color: '#b45309' },
+    { budget_id: budget.id, name: 'Miscellaneous',   amount:  500, type: 'expense',  color: '#7c3aed' }
+  ];
+
+  const { error: catError } = await supabase
+    .from('budget_categories')
+    .insert(sampleCategories);
+
+  if (catError) throw catError;
+
+  // 3) Fetch and return with proper aliases
+  const categories = await fetchBudgetCategories(budget.id);
+  return { budget, categories };
 }
