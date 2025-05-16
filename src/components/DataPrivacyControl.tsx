@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Shield, Info } from "lucide-react";
+import { Shield, Info, Lock } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
@@ -65,11 +65,12 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
           <DialogHeader className="mb-4 p-6 pb-2">
             <div className="flex items-center gap-2 mb-1">
               <Shield className="h-5 w-5 text-accent" />
-              <DialogTitle className="text-2xl font-serif text-white">You control your data</DialogTitle>
+              <DialogTitle className="text-2xl font-serif text-white">Your data is protected</DialogTitle>
             </div>
             <p className="text-muted-foreground/90 mt-2">
-              We value your privacy. Choose which cookies you want to allow on our website.
-              You can change these settings anytime in your account settings.
+              The Boutique Family Office uses military-grade security measures and is fully SOC-2 and HIPAA compliant. 
+              Choose which cookies you want to allow on our website.
+              You can change these settings anytime.
             </p>
           </DialogHeader>
 
@@ -136,9 +137,9 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
           </div>
 
           <div className="flex items-center mt-2 px-6 pb-3 text-sm text-muted-foreground/80">
-            <Info className="h-4 w-4 mr-2" />
+            <Lock className="h-4 w-4 mr-2" />
             <p>
-              By using this site, you agree to our{" "}
+              Protected by military-grade encryption. View our{" "}
               <a href="/privacy-policy" className="underline hover:text-accent">
                 Privacy Policy
               </a>
