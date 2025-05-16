@@ -1,9 +1,18 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Shield } from "lucide-react";
+import { useState } from "react";
+import { DataPrivacyControl, PrivacyPreferences } from "@/components/DataPrivacyControl";
 
 export function Hero() {
+  const [privacyDialogOpen, setPrivacyDialogOpen] = useState(false);
+
+  const handleSavePreferences = (preferences: PrivacyPreferences) => {
+    console.log("Privacy preferences saved:", preferences);
+    // Here you would typically save these preferences to localStorage or a database
+  };
+
   return (
     <div className="hero-gradient min-h-screen flex items-center text-foreground pt-16 relative">
       <div className="hero-overlay"></div>
@@ -27,6 +36,14 @@ export function Hero() {
                 Learn More
               </Button>
             </Link>
+            <Button 
+              variant="outline" 
+              onClick={() => setPrivacyDialogOpen(true)}
+              className="border-border text-foreground hover:bg-secondary text-lg px-6 py-6 rounded-md bg-secondary/20 backdrop-blur-sm flex items-center gap-2"
+            >
+              <Shield className="h-5 w-5 text-accent" />
+              Privacy Settings
+            </Button>
           </div>
           
           <div className="mt-16 pt-8 border-t border-border/20">
@@ -49,6 +66,13 @@ export function Hero() {
               </div>
             </div>
           </div>
+          
+          {/* Data Privacy Control Dialog */}
+          <DataPrivacyControl
+            open={privacyDialogOpen}
+            onOpenChange={setPrivacyDialogOpen}
+            onSave={handleSavePreferences}
+          />
         </div>
       </div>
     </div>
