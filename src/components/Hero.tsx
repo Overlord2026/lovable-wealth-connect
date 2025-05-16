@@ -2,15 +2,30 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Lock } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DataPrivacyControl, PrivacyPreferences } from "@/components/DataPrivacyControl";
 
 export function Hero() {
   const [privacyDialogOpen, setPrivacyDialogOpen] = useState(false);
 
+  // Check local storage on component mount to determine if we should show the privacy dialog
+  useEffect(() => {
+    const hasConsented = localStorage.getItem('privacyConsentGiven');
+    
+    // If no consent record exists, open the dialog automatically
+    if (!hasConsented) {
+      // Add a small delay so the user can see the page first
+      const timer = setTimeout(() => {
+        setPrivacyDialogOpen(true);
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const handleSavePreferences = (preferences: PrivacyPreferences) => {
     console.log("Privacy preferences saved:", preferences);
-    // Here you would typically save these preferences to localStorage or a database
+    // Privacy preferences are now saved in local storage in the DataPrivacyControl component
   };
 
   return (
