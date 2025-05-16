@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster"
@@ -17,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import Education from "./pages/Education";
 import ContentDetail from "./pages/ContentDetail";
 import LuxuryTravel from "./pages/LuxuryTravel";
+import Advisors from "./pages/Advisors";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -32,6 +34,7 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/advisors" element={<Advisors />} />
         <Route
           path="/dashboard"
           element={

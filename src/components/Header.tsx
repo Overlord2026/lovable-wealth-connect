@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,7 @@ export function Header() {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Solutions", href: "#solutions" },
-    { name: "Advisors", href: "#advisors" },
+    { name: "Advisors", href: "/advisors" }, // Updated to point to dedicated page
     { name: "Loans", href: "/loans" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
