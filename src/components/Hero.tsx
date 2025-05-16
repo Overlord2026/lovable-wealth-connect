@@ -83,7 +83,7 @@ export function Hero() {
             </div>
           </div>
           
-          {/* Data Privacy Control Dialog */}
+          {/* Data Privacy Control Sheet */}
           <DataPrivacyControl
             open={privacyDialogOpen}
             onOpenChange={setPrivacyDialogOpen}

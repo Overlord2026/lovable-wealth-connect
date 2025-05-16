@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Shield, Info, Lock } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -42,15 +42,25 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
       statistical: true,
       marketing: true,
     });
+    onSave({
+      necessary: true,
+      functional: true,
+      statistical: true,
+      marketing: true,
+    });
+    onOpenChange(false);
   };
 
   const handleDeclineAll = () => {
-    setPreferences({
+    const minimalPreferences = {
       necessary: true, // Always keep necessary
       functional: false,
       statistical: false,
       marketing: false,
-    });
+    };
+    setPreferences(minimalPreferences);
+    onSave(minimalPreferences);
+    onOpenChange(false);
   };
 
   const handleSave = () => {
@@ -59,84 +69,92 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-neutral-900 text-white max-w-2xl p-0 overflow-hidden">
-        <Card className="border-0 bg-neutral-900 text-white">
-          <DialogHeader className="mb-4 p-6 pb-2">
-            <div className="flex items-center gap-2 mb-1">
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent 
+        side="bottom" 
+        className="bg-neutral-900 text-white p-0 rounded-t-xl border-t border-white/10 max-h-[90vh] overflow-y-auto"
+      >
+        <div className="flex justify-center pt-2">
+          <div className="h-1.5 w-12 bg-white/20 rounded-full mb-4"></div>
+        </div>
+        
+        <div className="container max-w-4xl mx-auto px-6">
+          <SheetHeader className="mb-6 text-left">
+            <div className="flex items-center gap-2">
               <Shield className="h-5 w-5 text-accent" />
-              <DialogTitle className="text-2xl font-serif text-white">Your data is protected</DialogTitle>
+              <SheetTitle className="text-2xl font-serif text-white">You control your data</SheetTitle>
             </div>
-            <p className="text-muted-foreground/90 mt-2">
-              The Boutique Family Office uses military-grade security measures and is fully SOC-2 and HIPAA compliant. 
+            <p className="text-muted-foreground/90 mt-2 text-left">
+              The Boutique Family Office uses military-grade security measures and is fully SOC-2 and HIPAA compliant.
               Choose which cookies you want to allow on our website.
-              You can change these settings anytime.
             </p>
-          </DialogHeader>
+          </SheetHeader>
 
-          <div className="space-y-5 px-6">
-            {/* Necessary Cookies */}
-            <div className="flex items-center justify-between py-3 border-b border-white/10">
-              <div>
-                <h3 className="font-medium text-white mb-1">Necessary</h3>
+          <div className="space-y-5 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Necessary Cookies */}
+              <div className="bg-neutral-800/50 p-5 rounded-xl border border-white/10">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-medium text-white text-lg">Necessary</h3>
+                  <Switch 
+                    checked={preferences.necessary} 
+                    disabled={true}
+                    className="data-[state=checked]:bg-accent/60 data-[state=checked]:opacity-80"
+                  />
+                </div>
                 <p className="text-sm text-muted-foreground/90">
-                  These cookies are essential for the website to function properly. They enable core functionality such as security, network management, and account access.
+                  Essential for the website to function properly. They enable core functionality such as security and account access.
                 </p>
               </div>
-              <Switch 
-                checked={preferences.necessary} 
-                disabled={true}
-                className="data-[state=checked]:bg-accent/60 data-[state=checked]:opacity-80"
-              />
-            </div>
 
-            {/* Functional Cookies */}
-            <div className="flex items-center justify-between py-3 border-b border-white/10">
-              <div>
-                <h3 className="font-medium text-white mb-1">Functional</h3>
+              {/* Functional Cookies */}
+              <div className="bg-neutral-800/50 p-5 rounded-xl border border-white/10">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-medium text-white text-lg">Functional</h3>
+                  <Switch 
+                    checked={preferences.functional} 
+                    onCheckedChange={() => handleToggle('functional')}
+                    className="data-[state=checked]:bg-accent"
+                  />
+                </div>
                 <p className="text-sm text-muted-foreground/90">
-                  These cookies enable the website to provide enhanced functionality and personalization. They may be set by us or by third-party providers whose services we have added to our pages.
+                  Enable enhanced functionality and personalization of your experience on our website.
                 </p>
               </div>
-              <Switch 
-                checked={preferences.functional} 
-                onCheckedChange={() => handleToggle('functional')}
-                className="data-[state=checked]:bg-accent"
-              />
-            </div>
 
-            {/* Statistical Cookies */}
-            <div className="flex items-center justify-between py-3 border-b border-white/10">
-              <div>
-                <h3 className="font-medium text-white mb-1">Statistical</h3>
+              {/* Statistical Cookies */}
+              <div className="bg-neutral-800/50 p-5 rounded-xl border border-white/10">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-medium text-white text-lg">Statistical</h3>
+                  <Switch 
+                    checked={preferences.statistical} 
+                    onCheckedChange={() => handleToggle('statistical')}
+                    className="data-[state=checked]:bg-accent"
+                  />
+                </div>
                 <p className="text-sm text-muted-foreground/90">
-                  These cookies collect information about how visitors use a website, for instance which pages visitors go to most often. We use this information to improve our website and services.
+                  Help us understand how visitors interact with our website to improve our services.
                 </p>
               </div>
-              <Switch 
-                checked={preferences.statistical} 
-                onCheckedChange={() => handleToggle('statistical')}
-                className="data-[state=checked]:bg-accent"
-              />
-            </div>
 
-            {/* Marketing Cookies */}
-            <div className="flex items-center justify-between py-3 border-b border-white/10">
-              <div>
-                <h3 className="font-medium text-white mb-1">Marketing</h3>
+              {/* Marketing Cookies */}
+              <div className="bg-neutral-800/50 p-5 rounded-xl border border-white/10">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-medium text-white text-lg">Marketing</h3>
+                  <Switch 
+                    checked={preferences.marketing} 
+                    onCheckedChange={() => handleToggle('marketing')}
+                    className="data-[state=checked]:bg-accent"
+                  />
+                </div>
                 <p className="text-sm text-muted-foreground/90">
-                  These cookies are used to track visitors across websites. The intention is to display ads that are relevant and engaging for the individual user.
+                  Used to display personalized ads relevant to your interests across the web.
                 </p>
               </div>
-              <Switch 
-                checked={preferences.marketing} 
-                onCheckedChange={() => handleToggle('marketing')}
-                className="data-[state=checked]:bg-accent"
-              />
             </div>
           </div>
 
-          <div className="flex items-center mt-2 px-6 pb-3 text-sm text-muted-foreground/80">
+          <div className="flex items-center mb-4 text-sm text-muted-foreground/80">
             <Lock className="h-4 w-4 mr-2" />
             <p>
               Protected by military-grade encryption. View our{" "}
@@ -146,32 +164,32 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
             </p>
           </div>
 
-          <DialogFooter className="p-6 pt-4 bg-neutral-900 flex flex-col sm:flex-row gap-3 items-center justify-between border-t border-white/10">
-            <div className="flex gap-2 self-start sm:self-auto">
+          <div className="sticky bottom-0 py-6 bg-neutral-900 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-4">
+            <div className="flex gap-3 w-full sm:w-auto">
               <Button 
                 variant="outline" 
                 onClick={handleDeclineAll}
-                className="border-white/20 hover:bg-white/5 hover:border-white/30 text-white"
+                className="flex-1 sm:flex-none border-white/20 hover:bg-white/5 hover:border-white/30 text-white"
               >
                 Decline All
               </Button>
               <Button 
-                variant="secondary" 
+                variant="default"
                 onClick={handleAcceptAll}
-                className="bg-secondary/60 hover:bg-secondary/80"
+                className="flex-1 sm:flex-none bg-accent hover:bg-accent/90"
               >
                 Accept All
               </Button>
             </div>
             <Button 
-              className="bg-accent hover:bg-accent/90 self-end sm:self-auto"
+              className="w-full sm:w-auto bg-secondary/60 hover:bg-secondary/80"
               onClick={handleSave}
             >
               Save Preferences
             </Button>
-          </DialogFooter>
-        </Card>
-      </DialogContent>
-    </Dialog>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }
