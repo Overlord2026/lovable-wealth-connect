@@ -12,6 +12,7 @@
     --color-card: #25293F;     /* neutral-800 */
     --color-accent: #00B8BF;   /* accent */
     --color-accent-light: #E6F7F8;
+    --color-gold: #D4AF37;     /* gold */
 
     /* Map existing variables to new colors */
     --background: 0 0% 11%;
@@ -94,9 +95,13 @@
   .premium-gradient {
     @apply bg-gradient-to-br from-accent/80 to-primary/90;
   }
+
+  .gold-gradient {
+    @apply bg-gradient-to-br from-gold/80 to-gold/90;
+  }
   
   .text-glow {
-    text-shadow: 0 0 15px rgba(0, 184, 191, 0.5); /* Using accent color */
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.5); /* Using gold color */
   }
   
   .hover-glow {
@@ -104,7 +109,7 @@
   }
   
   .hover-glow:hover {
-    box-shadow: 0 0 15px rgba(0, 184, 191, 0.3); /* Using accent color */
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); /* Using gold color */
   }
   
   .section-top-fade::before {
@@ -126,6 +131,10 @@
   
   .btn-outline {
     @apply border-[#00B8BF] text-[#00B8BF] hover:bg-[#00B8BF]/10 cursor-pointer;
+  }
+
+  .btn-premium {
+    @apply bg-[#0A0F1D] text-[#D4AF37] border border-[#D4AF37] hover:bg-[#151B2E] hover:shadow-[0_0_10px_rgba(212,175,55,0.3)] cursor-pointer;
   }
 }
 

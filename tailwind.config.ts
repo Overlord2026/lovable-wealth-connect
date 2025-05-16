@@ -98,6 +98,11 @@ export default {
 					700: '#374151',
 					200: '#E6E8EB',
 				},
+				gold: {
+					DEFAULT: '#D4AF37',
+					light: '#F5EBC8',
+					dark: '#A98A28',
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

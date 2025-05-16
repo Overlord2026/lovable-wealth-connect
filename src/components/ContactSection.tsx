@@ -63,7 +63,7 @@ export function ContactSection() {
           </div>
           
           <div className="bg-gray-50 p-8 rounded-xl">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
+            <form onSubmit={handleSubmit} className="bg-[#1B1E2E] p-8 rounded-lg shadow-lg">
               <div className="grid gap-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -130,7 +130,8 @@ export function ContactSection() {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-[#00B8BF] hover:bg-[#00B8BF]/90 text-white"
+                  variant="premium"
+                  className="w-full"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Submitting..." : "Connect With an Advisor"}
