@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -53,13 +52,14 @@ export function Header() {
       isScrolled ? 'bg-[#1B1E2E]/90 backdrop-blur-md shadow-md' : 'bg-[#1B1E2E] shadow-sm'
     }`}>
       <div className="container flex items-center justify-between py-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
           <Link to="/">
-            <div className="h-10 w-10 rounded-full bg-navy-700 flex items-center justify-center">
-              <span className="text-white font-serif font-bold text-lg">W</span>
-            </div>
+            <img 
+              src="/horizontal-logo.png" 
+              alt="WealthConnect" 
+              className="h-8 md:h-10" 
+            />
           </Link>
-          <span className="font-serif text-xl font-semibold text-neutral-300">Wealth<span className="text-[#00B8BF]">Connect</span></span>
         </div>
         
         {isMobile ? (
@@ -73,7 +73,11 @@ export function Header() {
             <SheetContent side="right" className="w-[300px] sm:w-[400px] z-50">
               <div className="flex flex-col h-full">
                 <div className="py-6 border-b">
-                  <span className="font-serif text-xl font-semibold text-neutral-300">Wealth<span className="text-[#00B8BF]">Connect</span></span>
+                  <img 
+                    src="/horizontal-logo.png" 
+                    alt="WealthConnect" 
+                    className="h-8" 
+                  />
                 </div>
                 <nav className="flex flex-col gap-4 mt-8 flex-grow">
                   {navigation.map((item) => (
