@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Card,
@@ -20,11 +19,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { AccessLevel } from "@/types/network";
 
 interface MemberListProps {
   members: any[];
   isLoading: boolean;
-  onUpdateAccessLevel: (networkId: string, accessPermissionId: string, accessLevel: string) => void;
+  onUpdateAccessLevel: (networkId: string, accessPermissionId: string, accessLevel: AccessLevel) => void;
   onToggleExport: (accessPermissionId: string, canExport: boolean) => void;
   onRemoveMember: (networkId: string) => void;
 }
@@ -88,7 +88,7 @@ export const MemberList: React.FC<MemberListProps> = ({
                   <span className="text-sm font-medium min-w-24">Access Level:</span>
                   <Select
                     value={member.access_permissions?.[0]?.access_level || "no_access"}
-                    onValueChange={(value) => onUpdateAccessLevel(
+                    onValueChange={(value: AccessLevel) => onUpdateAccessLevel(
                       member.id,
                       member.access_permissions?.[0]?.id,
                       value

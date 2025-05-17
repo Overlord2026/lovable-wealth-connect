@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { v4 as uuidv4 } from "uuid";
 import { UserPlus } from "lucide-react";
+import { AccessLevel } from "@/types/network";
 
 interface MemberInviteProps {
   userId: string;
@@ -19,7 +20,7 @@ interface MemberInviteProps {
 export const MemberInvite: React.FC<MemberInviteProps> = ({ userId, onSuccess }) => {
   const [email, setEmail] = useState("");
   const [relationship, setRelationship] = useState("");
-  const [accessLevel, setAccessLevel] = useState<string>("read_only");
+  const [accessLevel, setAccessLevel] = useState<AccessLevel>("read_only");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -119,7 +120,7 @@ export const MemberInvite: React.FC<MemberInviteProps> = ({ userId, onSuccess })
               <Label htmlFor="accessLevel">Access Level</Label>
               <Select
                 value={accessLevel}
-                onValueChange={setAccessLevel}
+                onValueChange={(value: AccessLevel) => setAccessLevel(value)}
               >
                 <SelectTrigger id="accessLevel">
                   <SelectValue />

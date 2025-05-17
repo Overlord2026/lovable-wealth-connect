@@ -7,6 +7,7 @@ import { MemberInvite } from "./MemberInvite";
 import { NetworkTabs } from "./NetworkTabs";
 import { PendingInvites } from "./PendingInvites";
 import { Users, UserPlus, Mail } from "lucide-react";
+import { AccessLevel } from "@/types/network";
 
 interface NetworkManagerProps {
   user: { id: string } | null;
@@ -77,7 +78,7 @@ export const NetworkManager: React.FC<NetworkManagerProps> = ({ user }) => {
   };
 
   // Update access level for a member
-  const updateAccessLevel = async (networkId: string, accessPermissionId: string, accessLevel: string) => {
+  const updateAccessLevel = async (networkId: string, accessPermissionId: string, accessLevel: AccessLevel) => {
     try {
       const { error } = await supabase
         .from('access_permissions')
