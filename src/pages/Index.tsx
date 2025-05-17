@@ -20,10 +20,16 @@ const Index = () => {
     document.title = "Family Office Marketplace | Elite Wealth Solutions";
   }, []);
 
-  // If user is authenticated, redirect to dashboard
+  // If user is authenticated, redirect to dashboard or the stored returnTo URL
   useEffect(() => {
     if (user) {
-      navigate('/dashboard');
+      const returnTo = sessionStorage.getItem("returnTo");
+      if (returnTo) {
+        sessionStorage.removeItem("returnTo");
+        navigate(returnTo);
+      } else {
+        navigate('/dashboard');
+      }
     }
   }, [user, navigate]);
 

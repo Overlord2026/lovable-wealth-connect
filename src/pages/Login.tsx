@@ -15,8 +15,8 @@ export default function Login() {
   // Redirect authenticated users back to their original destination or dashboard
   useEffect(() => {
     if (user) {
-      const returnTo = localStorage.getItem("returnTo") || "/dashboard";
-      localStorage.removeItem("returnTo");
+      const returnTo = sessionStorage.getItem("returnTo") || "/dashboard";
+      sessionStorage.removeItem("returnTo");
       navigate(returnTo);
     }
   }, [user, navigate]);

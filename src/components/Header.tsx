@@ -2,12 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, User, LogOut, ChevronDown } from "lucide-react";
-import { 
-  Sheet, 
-  SheetContent, 
-  SheetTrigger 
-} from "@/components/ui/sheet";
+import { User, LogOut, ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuth } from "@/contexts/AuthContext";
 import {
@@ -63,7 +58,7 @@ export function Header() {
         
         {isMobile ? (
           // Mobile view - only show logo, leave navigation to MobileNav component
-          <div className="w-6"></div> {/* Spacer for layout balance */}
+          <div className="w-6"></div>
         ) : (
           <>
             <nav className="hidden md:flex items-center gap-8">

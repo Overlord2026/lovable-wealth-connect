@@ -2,6 +2,7 @@
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Eye, ArrowUpRight, Users } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface PanoramaHeaderProps {
   netWorth: number;
@@ -11,6 +12,8 @@ interface PanoramaHeaderProps {
 }
 
 export function PanoramaHeader({ netWorth, assets, liabilities, isLoading }: PanoramaHeaderProps) {
+  const isMobile = useIsMobile();
+  
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', { 
       style: 'currency', 

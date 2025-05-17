@@ -17,10 +17,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     if (!loading && !user) {
       toast.error("Please sign in to access this page");
       // Store the current path for redirection after login
-      localStorage.setItem("returnTo", location.pathname);
+      const returnUrl = location.pathname + location.search;
+      sessionStorage.setItem("returnTo", returnUrl);
       navigate('/login');
     }
-  }, [user, loading, navigate, location.pathname]);
+  }, [user, loading, navigate, location]);
 
   if (loading) {
     return (

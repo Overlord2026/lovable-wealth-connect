@@ -6,6 +6,7 @@ import { ShieldCheck, AlertTriangle, Info } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { MobileNav } from "@/components/MobileNav";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const { user } = useAuth();
+  const isMobile = useIsMobile();
   const [verificationStatus, setVerificationStatus] = useState<string | null>(null);
   const [isProfessional, setIsProfessional] = useState(false);
   
@@ -89,7 +91,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <CollapsibleSidebar />
+      {!isMobile && <CollapsibleSidebar />}
       <div className="flex-1 overflow-auto p-6">
         {renderVerificationBanner()}
         {children}
