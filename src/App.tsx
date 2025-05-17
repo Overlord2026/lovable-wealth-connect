@@ -19,6 +19,7 @@ import Education from "./pages/Education";
 import ContentDetail from "./pages/ContentDetail";
 import LuxuryTravel from "./pages/LuxuryTravel";
 import Advisors from "./pages/Advisors";
+import Network from "./pages/Network";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -104,6 +105,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Payments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/network"
+          element={
+            <ProtectedRoute>
+              <Network />
             </ProtectedRoute>
           }
         />

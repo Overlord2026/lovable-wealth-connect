@@ -9,6 +9,44 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      access_permissions: {
+        Row: {
+          access_level: Database["public"]["Enums"]["access_level"]
+          can_export: boolean | null
+          created_at: string | null
+          id: string
+          network_id: string
+          permissions_config: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          access_level?: Database["public"]["Enums"]["access_level"]
+          can_export?: boolean | null
+          created_at?: string | null
+          id?: string
+          network_id: string
+          permissions_config?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          access_level?: Database["public"]["Enums"]["access_level"]
+          can_export?: boolean | null
+          created_at?: string | null
+          id?: string
+          network_id?: string
+          permissions_config?: Json | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "access_permissions_network_id_fkey"
+            columns: ["network_id"]
+            isOneToOne: false
+            referencedRelation: "family_network"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       advisor_notifications: {
         Row: {
           created_at: string
@@ -513,6 +551,33 @@ export type Database = {
         }
         Relationships: []
       }
+      family_network: {
+        Row: {
+          created_at: string | null
+          id: string
+          member_id: string
+          owner_id: string
+          relationship_type: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          member_id: string
+          owner_id: string
+          relationship_type?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          member_id?: string
+          owner_id?: string
+          relationship_type?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       feedback: {
         Row: {
           category: string
@@ -819,6 +884,42 @@ export type Database = {
           price?: number
           type?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      network_invitations: {
+        Row: {
+          access_level: Database["public"]["Enums"]["access_level"] | null
+          created_at: string | null
+          email: string
+          expires_at: string | null
+          id: string
+          invite_code: string
+          inviter_id: string
+          relationship_type: string | null
+          status: string | null
+        }
+        Insert: {
+          access_level?: Database["public"]["Enums"]["access_level"] | null
+          created_at?: string | null
+          email: string
+          expires_at?: string | null
+          id?: string
+          invite_code: string
+          inviter_id: string
+          relationship_type?: string | null
+          status?: string | null
+        }
+        Update: {
+          access_level?: Database["public"]["Enums"]["access_level"] | null
+          created_at?: string | null
+          email?: string
+          expires_at?: string | null
+          id?: string
+          invite_code?: string
+          inviter_id?: string
+          relationship_type?: string | null
+          status?: string | null
         }
         Relationships: []
       }
@@ -1227,6 +1328,7 @@ export type Database = {
       }
     }
     Enums: {
+      access_level: "full_access" | "partial_access" | "read_only" | "no_access"
       account_type:
         | "checking"
         | "savings"
@@ -1367,6 +1469,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      access_level: ["full_access", "partial_access", "read_only", "no_access"],
       account_type: [
         "checking",
         "savings",
