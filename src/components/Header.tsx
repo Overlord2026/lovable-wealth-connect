@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { User, LogOut, ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuth } from "@/contexts/AuthContext";
+import { DropdownNavMenu } from "@/components/navigation/DropdownNavMenu";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,15 +19,6 @@ export function Header() {
   const { user, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   
-  const navigation = [
-    { name: "Home", href: "/" },
-    { name: "Solutions", href: "#solutions" },
-    { name: "Advisors", href: "/advisors" },
-    { name: "Services", href: "#services" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
-  ];
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -42,7 +34,6 @@ export function Header() {
     await logout();
   };
 
-  // The header no longer needs its own mobile menu as it's consolidated in MobileNav
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${
       isScrolled ? 'bg-[#1B1E2E]/90 backdrop-blur-md shadow-md' : 'bg-[#1B1E2E] shadow-sm'
@@ -61,17 +52,8 @@ export function Header() {
           <div className="w-6"></div>
         ) : (
           <>
-            <nav className="hidden md:flex items-center gap-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href.startsWith('#') ? `/${item.href}` : item.href}
-                  className="hover-underline text-sm font-medium text-neutral-300 hover:text-[#00B8BF] transition-colors"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
+            {/* Desktop navigation using our new DropdownNavMenu */}
+            <DropdownNavMenu />
             
             {user ? (
               <div className="hidden md:flex items-center gap-4">

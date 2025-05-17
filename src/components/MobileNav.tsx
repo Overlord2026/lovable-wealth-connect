@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useState } from "react";
+import { navigationItems } from "@/components/navigation/DropdownNavMenu";
 
 export function MobileNav() {
   const location = useLocation();
@@ -57,93 +58,22 @@ export function MobileNav() {
     }
   ];
 
-  // Navigation sections for the full menu
+  // Map our navigation structure to the mobile sidebar format
   const navSections = [
     {
-      id: "home",
-      title: "HOME",
-      items: [
-        {
-          name: "Dashboard",
-          path: "/dashboard",
-          icon: Home,
-          requiresAuth: true,
-        },
-        {
-          name: "Home",
-          path: "/",
-          icon: Home,
-          requiresAuth: false,
-        }
-      ]
+      id: "platform",
+      title: navigationItems.platform.title.toUpperCase(),
+      items: navigationItems.platform.items
     },
     {
-      id: "education",
-      title: "EDUCATION & SOLUTIONS",
-      items: [
-        {
-          name: "Education",
-          path: "/education",
-          icon: Home,
-          requiresAuth: true,
-        },
-        {
-          name: "AI Advisor",
-          path: "/ai-advisor",
-          icon: Home,
-          requiresAuth: true,
-        }
-      ]
+      id: "solutions",
+      title: navigationItems.solutions.title.toUpperCase(),
+      items: navigationItems.solutions.items
     },
     {
-      id: "wealth",
-      title: "WEALTH MANAGEMENT",
-      requiresAuth: true,
-      items: [
-        {
-          name: "Panorama",
-          path: "/panorama",
-          icon: Eye,
-          requiresAuth: true,
-        },
-        {
-          name: "Analyze",
-          path: "/panorama/analyze/default",
-          icon: BarChart3,
-          requiresAuth: true,
-        },
-        {
-          name: "Budget",
-          path: "/budget",
-          icon: Wallet,
-          requiresAuth: true,
-        }
-      ]
-    },
-    {
-      id: "planning",
-      title: "PLANNING & SERVICES",
-      requiresAuth: true,
-      items: [
-        {
-          name: "Loans",
-          path: "/loans",
-          icon: Home,
-          requiresAuth: true,
-        },
-        {
-          name: "Luxury Travel",
-          path: "/luxury-travel",
-          icon: Home,
-          requiresAuth: true,
-        },
-        {
-          name: "Network",
-          path: "/network",
-          icon: Home,
-          requiresAuth: true,
-        }
-      ]
+      id: "services",
+      title: navigationItems.services.title.toUpperCase(),
+      items: navigationItems.services.items
     }
   ];
 
@@ -188,17 +118,6 @@ export function MobileNav() {
                         
                         <div className="flex flex-col gap-2 mt-4 overflow-auto">
                           {navSections.map((section) => {
-                            // Skip sections that require auth if user is not logged in
-                            if (section.requiresAuth && !user) return null;
-                            
-                            // For non-auth sections, filter out items that require auth
-                            const sectionItems = section.items.filter(item => 
-                              !item.requiresAuth || (item.requiresAuth && user)
-                            );
-                            
-                            // If no items to display after filtering, skip the section
-                            if (sectionItems.length === 0) return null;
-                            
                             return (
                               <Accordion 
                                 key={section.id} 
@@ -212,13 +131,13 @@ export function MobileNav() {
                                   </AccordionTrigger>
                                   <AccordionContent className="pt-1 pb-2">
                                     <div className="flex flex-col space-y-1 pl-3">
-                                      {sectionItems.map((item) => {
-                                        const isItemActive = location.pathname === item.path;
+                                      {section.items.map((item) => {
+                                        const isItemActive = location.pathname === item.href;
                                         
                                         return (
                                           <Link
-                                            key={item.path}
-                                            to={item.path}
+                                            key={item.href}
+                                            to={item.href}
                                             className={cn(
                                               "flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors",
                                               isItemActive

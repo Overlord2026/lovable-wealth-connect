@@ -7,6 +7,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AuthCard } from "@/components/AuthCard";
 import { Lock, ShieldCheck } from "lucide-react";
+import { LoginPageNav } from "@/components/navigation/LoginPageNav";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const { user } = useAuth();
@@ -23,8 +25,21 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex flex-col bg-neutral-900">
-      <Header />
-      <main className="flex-grow flex items-center justify-center py-12 px-4">
+      {/* Custom header for login page */}
+      <header className="fixed w-full z-50 bg-[#1B1E2E] shadow-sm">
+        <div className="container flex items-center justify-between py-4">
+          <div className="flex items-center">
+            <Link to="/">
+              <div className="flex items-center">
+                <span className="text-xl font-serif font-bold text-white">Family Office <span className="text-gold">Marketplace</span></span>
+              </div>
+            </Link>
+          </div>
+          <LoginPageNav />
+        </div>
+      </header>
+
+      <main className="flex-grow flex items-center justify-center py-12 px-4 pt-24">
         <AuthCard activeTab="login">
           <div className="text-center mb-6">
             <h1 className="text-xl font-bold text-white mb-1">Log in securely</h1>
