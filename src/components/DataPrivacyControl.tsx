@@ -110,7 +110,7 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
             <Button 
               variant="ghost" 
               onClick={toggleDetails} 
-              className="text-accent flex items-center gap-1 p-2"
+              className="text-accent flex items-center gap-1 p-2 hover:bg-accent/10"
             >
               {showDetails ? (
                 <>Hide Details <ChevronUp className="h-4 w-4" /></>
@@ -202,21 +202,21 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
               <Button 
                 variant="outline" 
                 onClick={handleDeclineAll}
-                className="flex-1 sm:flex-none bg-[#0A1F33] hover:bg-[#0A1F33]/90 border-gray-300 text-gold hover:text-gold/90"
+                className="flex-1 sm:flex-none bg-[#0A1F33] hover:bg-[#0A1F33]/80 border-gray-300 text-gold hover:text-gold transition-colors duration-200"
               >
                 Decline All
               </Button>
               <Button 
                 variant="default"
                 onClick={handleAcceptAll}
-                className="flex-1 sm:flex-none bg-gold hover:bg-gold/90 text-white"
+                className="flex-1 sm:flex-none bg-gold hover:bg-gold/80 text-navy-950 font-medium transition-colors duration-200"
               >
                 Accept All
               </Button>
             </div>
             {showDetails && (
               <Button 
-                className="w-full sm:w-auto bg-[#0A1F33] hover:bg-[#0A1F33]/90 text-gold"
+                className="w-full sm:w-auto bg-[#0A1F33] hover:bg-[#0A1F33]/80 text-gold hover:text-gold/90 transition-colors duration-200"
                 onClick={handleSave}
               >
                 Save Preferences
