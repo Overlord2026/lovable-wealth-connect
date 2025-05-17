@@ -34,10 +34,10 @@ export function Hero() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl animate-fade-in">
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight hero-title">
-            Secure your legacy with <span className="text-gold text-glow">The Boutique Family Office</span>
+            Elite wealth solutions with <span className="text-gold text-glow">Family Office Marketplace</span>
           </h1>
           <p className="text-lg md:text-xl mb-10 text-muted-foreground/90 max-w-2xl leading-relaxed hero-text">
-            Connect with elite financial advisors tailored to your family's needs. Build wealth, protect assets, and achieve generational success with military-grade security.
+            Connect with premier financial advisors tailored to your family's unique needs. Build wealth, protect assets, and secure your family's legacy with military-grade security.
           </p>
           
           <div className="flex flex-wrap gap-3 mb-10">

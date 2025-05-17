@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { DashboardSidebar } from "./DashboardSidebar";
+import { CollapsibleSidebar } from "./CollapsibleSidebar";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { ShieldCheck, AlertTriangle, Info } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -87,8 +87,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   };
 
   return (
-    <div className="flex min-h-screen">
-      <DashboardSidebar />
+    <div className="flex min-h-screen bg-gray-100">
+      <CollapsibleSidebar />
       <div className="flex-1 overflow-auto p-6">
         {renderVerificationBanner()}
         {children}

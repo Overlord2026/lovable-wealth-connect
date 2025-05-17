@@ -1,6 +1,8 @@
 
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface AnalyzeHeaderProps {
   isLoading: boolean;
@@ -14,7 +16,14 @@ export function AnalyzeHeader({ isLoading, viewId }: AnalyzeHeaderProps) {
         {isLoading ? (
           <Skeleton className="h-10 w-64" />
         ) : (
-          <h1 className="text-3xl font-bold">Portfolio Analysis</h1>
+          <>
+            <div className="flex items-center gap-2">
+              <Link to="/panorama" className="text-navy-600 hover:text-navy-800 transition-colors">
+                <ArrowLeft className="h-5 w-5" />
+              </Link>
+              <h1 className="text-3xl font-bold">Portfolio Analysis</h1>
+            </div>
+          </>
         )}
         <p className="text-gray-500 mt-1">
           {isLoading ? (

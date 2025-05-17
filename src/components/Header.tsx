@@ -27,8 +27,8 @@ export function Header() {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Solutions", href: "#solutions" },
-    { name: "Advisors", href: "/advisors" }, // Updated to point to dedicated page
-    { name: "Loans", href: "/loans" },
+    { name: "Advisors", href: "/advisors" },
+    { name: "Services", href: "#services" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
   ];
@@ -55,11 +55,9 @@ export function Header() {
       <div className="container flex items-center justify-between py-4">
         <div className="flex items-center">
           <Link to="/">
-            <img 
-              src="/horizontal-logo.png" 
-              alt="WealthConnect" 
-              className="h-8 md:h-10" 
-            />
+            <div className="flex items-center">
+              <span className="text-xl font-serif font-bold text-white">Family Office <span className="text-gold">Marketplace</span></span>
+            </div>
           </Link>
         </div>
         
@@ -71,14 +69,10 @@ export function Header() {
                 <span className="sr-only">Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] z-50">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] z-50 bg-navy-900 border-navy-800 text-white">
               <div className="flex flex-col h-full">
-                <div className="py-6 border-b">
-                  <img 
-                    src="/horizontal-logo.png" 
-                    alt="WealthConnect" 
-                    className="h-8" 
-                  />
+                <div className="py-6 border-b border-navy-800">
+                  <span className="text-xl font-serif font-bold text-white">Family Office <span className="text-gold">Marketplace</span></span>
                 </div>
                 <nav className="flex flex-col gap-4 mt-8 flex-grow">
                   {navigation.map((item) => (
@@ -92,11 +86,11 @@ export function Header() {
                     </Link>
                   ))}
                 </nav>
-                <div className="py-6 border-t mt-auto">
+                <div className="py-6 border-t mt-auto border-navy-800">
                   {user ? (
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3 px-2">
-                        <div className="h-10 w-10 rounded-full bg-navy-100 flex items-center justify-center text-neutral-300">
+                        <div className="h-10 w-10 rounded-full bg-navy-800 flex items-center justify-center text-neutral-300">
                           <User size={20} />
                         </div>
                         <div>
@@ -106,13 +100,13 @@ export function Header() {
                       </div>
                       <div className="flex flex-col space-y-2">
                         <Link to="/profile" onClick={() => setIsOpen(false)}>
-                          <Button variant="outline" className="w-full justify-start">
+                          <Button variant="outline" className="w-full justify-start bg-navy-800 border-navy-700 text-white hover:bg-navy-700">
                             My Profile
                           </Button>
                         </Link>
                         <Button 
                           variant="outline" 
-                          className="w-full justify-start text-destructive hover:text-destructive"
+                          className="w-full justify-start text-red-400 hover:text-red-300 bg-navy-800 border-navy-700 hover:bg-navy-700"
                           onClick={() => {
                             handleLogout();
                             setIsOpen(false);
@@ -126,10 +120,10 @@ export function Header() {
                   ) : (
                     <div className="flex flex-col space-y-3">
                       <Link to="/login" onClick={() => setIsOpen(false)}>
-                        <Button variant="outline" className="w-full">Sign In</Button>
+                        <Button variant="outline" className="w-full bg-navy-800 border-navy-700 text-white hover:bg-navy-700">Sign In</Button>
                       </Link>
                       <Link to="/register" onClick={() => setIsOpen(false)}>
-                        <Button className="w-full bg-[#00B8BF] hover:bg-[#00B8BF]/90 text-white">Get Started</Button>
+                        <Button className="w-full bg-gold hover:bg-gold-dark text-navy-900 font-medium">Get Started</Button>
                       </Link>
                     </div>
                   )}
@@ -156,7 +150,7 @@ export function Header() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-[#25293F]">
-                      <div className="h-8 w-8 rounded-full bg-navy-100 flex items-center justify-center text-neutral-300">
+                      <div className="h-8 w-8 rounded-full bg-navy-800 flex items-center justify-center text-neutral-300">
                         <User size={16} />
                       </div>
                       <span className="font-medium text-neutral-300">{user.name}</span>
@@ -171,10 +165,13 @@ export function Header() {
                     <DropdownMenuItem asChild>
                       <Link to="/profile" className="cursor-pointer hover:text-white">My Profile</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard" className="cursor-pointer hover:text-white">Dashboard</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem 
                       onClick={handleLogout}
-                      className="text-destructive focus:text-destructive"
+                      className="text-red-400 focus:text-red-300 cursor-pointer"
                     >
                       <LogOut className="mr-2 h-4 w-4" />
                       <span>Sign Out</span>
@@ -188,7 +185,7 @@ export function Header() {
                   <Button variant="ghost" className="text-neutral-300 hover:text-white hover:bg-[#25293F]">Sign In</Button>
                 </Link>
                 <Link to="/register">
-                  <Button className="bg-[#00B8BF] text-white hover:bg-[#00B8BF]/90">Get Started</Button>
+                  <Button className="bg-gold text-navy-900 hover:bg-gold-dark font-medium">Get Started</Button>
                 </Link>
               </div>
             )}
