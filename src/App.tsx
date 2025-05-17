@@ -21,6 +21,7 @@ import LuxuryTravel from "./pages/LuxuryTravel";
 import Advisors from "./pages/Advisors";
 import Network from "./pages/Network";
 import Panorama from "./pages/Panorama";
+import PanoramaAnalyze from "./pages/PanoramaAnalyze";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -50,6 +51,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Panorama />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/panorama/analyze/:viewId"
+          element={
+            <ProtectedRoute>
+              <PanoramaAnalyze />
             </ProtectedRoute>
           }
         />

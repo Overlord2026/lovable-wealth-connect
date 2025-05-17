@@ -1,8 +1,9 @@
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { PlusCircle, Share2, Download, Filter } from "lucide-react";
+import { PlusCircle, Share2, Download, Filter, ChartBar } from "lucide-react";
 
 interface PanoramaControlPanelProps {
   views: { id: string; name: string; is_default: boolean }[];
@@ -15,6 +16,12 @@ export function PanoramaControlPanel({
   currentView, 
   onViewChange 
 }: PanoramaControlPanelProps) {
+  const navigate = useNavigate();
+  
+  const handleAnalyzeClick = () => {
+    navigate(`/panorama/analyze/${currentView}`);
+  };
+  
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-4 bg-white rounded-lg shadow mb-6">
       <div className="flex items-center gap-3">
@@ -37,6 +44,15 @@ export function PanoramaControlPanel({
       </div>
       
       <div className="flex items-center gap-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="flex items-center gap-2"
+          onClick={handleAnalyzeClick}
+        >
+          <ChartBar className="h-4 w-4" />
+          <span>Analyze</span>
+        </Button>
         <Button variant="outline" size="sm" className="flex items-center gap-2">
           <Filter className="h-4 w-4" />
           <span>Filter</span>

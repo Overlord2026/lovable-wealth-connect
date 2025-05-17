@@ -5,12 +5,14 @@ export interface PanoramaView {
   id: string;
   name: string;
   is_default: boolean;
-  filters: Record<string, any>;
+  filters: Record<string, any>; 
   layout_config: {
     showPerformance?: boolean;
     showRisk?: boolean;
     showBreakdown?: boolean;
+    showAnalyze?: boolean;
   };
+  user_id?: string;
 }
 
 export const panoramaService = {
@@ -27,16 +29,22 @@ export const panoramaService = {
       throw new Error(error.message);
     }
     
-    return data || [];
+    return data as unknown as PanoramaView[] || [];
   },
   
   /**
    * Create a new panorama view
    */
   createView: async (view: Omit<PanoramaView, 'id'>): Promise<PanoramaView> => {
+    // Ensure user_id is set
+    const viewWithUserId = {
+      ...view,
+      user_id: (await supabase.auth.getUser()).data.user?.id
+    };
+    
     const { data, error } = await supabase
       .from('panorama_views')
-      .insert(view)
+      .insert(viewWithUserId)
       .select()
       .single();
       
@@ -44,7 +52,7 @@ export const panoramaService = {
       throw new Error(error.message);
     }
     
-    return data;
+    return data as unknown as PanoramaView;
   },
   
   /**
@@ -62,7 +70,7 @@ export const panoramaService = {
       throw new Error(error.message);
     }
     
-    return data;
+    return data as unknown as PanoramaView;
   },
   
   /**

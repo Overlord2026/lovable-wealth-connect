@@ -103,10 +103,10 @@ export function PanoramaOverview({ assets, liabilities, isLoading }: PanoramaOve
                   <Tooltip formatter={(value) => formatCurrency(Number(value))} />
                 </PieChart>
               </ResponsiveContainer>
-              <ChartLegend verticalAlign="bottom">
-                <ChartLegendContent payload={data.map(item => ({ value: item.name, dataKey: item.name, color: item.color }))} />
-              </ChartLegend>
             </ChartContainer>
+            <ChartLegend verticalAlign="bottom">
+              <ChartLegendContent payload={data.map(item => ({ value: item.name, dataKey: item.name, color: item.color }))} />
+            </ChartLegend>
           </div>
         </div>
       )}

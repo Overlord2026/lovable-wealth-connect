@@ -58,6 +58,11 @@ export default function Panorama() {
         
         // If no views exist, create a default one
         if (!views || views.length === 0) {
+          const user = await supabase.auth.getUser();
+          const userId = user.data.user?.id;
+          
+          if (!userId) throw new Error("User not authenticated");
+          
           const { data: newView, error: newViewError } = await supabase
             .from('panorama_views')
             .insert([{
@@ -68,7 +73,8 @@ export default function Panorama() {
                 showPerformance: true,
                 showRisk: true,
                 showBreakdown: true
-              }
+              },
+              user_id: userId
             }])
             .select('id, name, is_default')
             .single();
