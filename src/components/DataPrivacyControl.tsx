@@ -136,7 +136,7 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
                   <Switch 
                     checked={preferences.necessary} 
                     disabled={true}
-                    className="data-[state=checked]:bg-gray-400 data-[state=checked]:opacity-80"
+                    className="data-[state=checked]:opacity-80"
                   />
                 </div>
                 <p className="text-sm text-neutral-600">
@@ -151,7 +151,6 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
                   <Switch 
                     checked={preferences.functional} 
                     onCheckedChange={() => handleToggle('functional')}
-                    className="data-[state=checked]:bg-accent"
                   />
                 </div>
                 <p className="text-sm text-neutral-600">
@@ -166,7 +165,6 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
                   <Switch 
                     checked={preferences.statistical} 
                     onCheckedChange={() => handleToggle('statistical')}
-                    className="data-[state=checked]:bg-accent"
                   />
                 </div>
                 <p className="text-sm text-neutral-600">
@@ -181,7 +179,6 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
                   <Switch 
                     checked={preferences.marketing} 
                     onCheckedChange={() => handleToggle('marketing')}
-                    className="data-[state=checked]:bg-accent"
                   />
                 </div>
                 <p className="text-sm text-neutral-600">
@@ -205,21 +202,21 @@ export function DataPrivacyControl({ open, onOpenChange, onSave }: DataPrivacyCo
               <Button 
                 variant="outline" 
                 onClick={handleDeclineAll}
-                className="flex-1 sm:flex-none border-gray-300 hover:bg-gray-100 text-neutral-800"
+                className="flex-1 sm:flex-none bg-[#0A1F33] hover:bg-[#0A1F33]/90 border-gray-300 text-gold hover:text-gold/90"
               >
                 Decline All
               </Button>
               <Button 
                 variant="default"
                 onClick={handleAcceptAll}
-                className="flex-1 sm:flex-none bg-accent hover:bg-accent/90 text-white"
+                className="flex-1 sm:flex-none bg-gold hover:bg-gold/90 text-white"
               >
                 Accept All
               </Button>
             </div>
             {showDetails && (
               <Button 
-                className="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 text-neutral-800"
+                className="w-full sm:w-auto bg-[#0A1F33] hover:bg-[#0A1F33]/90 text-gold"
                 onClick={handleSave}
               >
                 Save Preferences
