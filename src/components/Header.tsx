@@ -21,7 +21,6 @@ import {
 export function Header() {
   const isMobile = useIsMobile();
   const { user, logout } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   
   const navigation = [
@@ -48,6 +47,7 @@ export function Header() {
     await logout();
   };
 
+  // The header no longer needs its own mobile menu as it's consolidated in MobileNav
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${
       isScrolled ? 'bg-[#1B1E2E]/90 backdrop-blur-md shadow-md' : 'bg-[#1B1E2E] shadow-sm'
@@ -62,75 +62,8 @@ export function Header() {
         </div>
         
         {isMobile ? (
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-neutral-300">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] z-50 bg-navy-900 border-navy-800 text-white">
-              <div className="flex flex-col h-full">
-                <div className="py-6 border-b border-navy-800">
-                  <span className="text-xl font-serif font-bold text-white">Family Office <span className="text-gold">Marketplace</span></span>
-                </div>
-                <nav className="flex flex-col gap-4 mt-8 flex-grow">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href.startsWith('#') ? `/${item.href}` : item.href}
-                      className="px-2 py-3 text-lg font-medium text-neutral-300 hover:text-[#00B8BF] transition-colors"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </nav>
-                <div className="py-6 border-t mt-auto border-navy-800">
-                  {user ? (
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-3 px-2">
-                        <div className="h-10 w-10 rounded-full bg-navy-800 flex items-center justify-center text-neutral-300">
-                          <User size={20} />
-                        </div>
-                        <div>
-                          <p className="font-medium text-neutral-300">{user.name}</p>
-                          <p className="text-sm text-muted-foreground">{user.email}</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-col space-y-2">
-                        <Link to="/profile" onClick={() => setIsOpen(false)}>
-                          <Button variant="outline" className="w-full justify-start bg-navy-800 border-navy-700 text-white hover:bg-navy-700">
-                            My Profile
-                          </Button>
-                        </Link>
-                        <Button 
-                          variant="outline" 
-                          className="w-full justify-start text-red-400 hover:text-red-300 bg-navy-800 border-navy-700 hover:bg-navy-700"
-                          onClick={() => {
-                            handleLogout();
-                            setIsOpen(false);
-                          }}
-                        >
-                          <LogOut className="mr-2 h-4 w-4" />
-                          Sign Out
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col space-y-3">
-                      <Link to="/login" onClick={() => setIsOpen(false)}>
-                        <Button variant="outline" className="w-full bg-navy-800 border-navy-700 text-white hover:bg-navy-700">Sign In</Button>
-                      </Link>
-                      <Link to="/register" onClick={() => setIsOpen(false)}>
-                        <Button className="w-full bg-gold hover:bg-gold-dark text-navy-900 font-medium">Get Started</Button>
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+          // Mobile view - only show logo, leave navigation to MobileNav component
+          <div className="w-6"></div> {/* Spacer for layout balance */}
         ) : (
           <>
             <nav className="hidden md:flex items-center gap-8">

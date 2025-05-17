@@ -5,6 +5,7 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { ShieldCheck, AlertTriangle, Info } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { MobileNav } from "@/components/MobileNav";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -93,6 +94,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {renderVerificationBanner()}
         {children}
       </div>
+      <MobileNav />
     </div>
   );
 }

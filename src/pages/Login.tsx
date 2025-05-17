@@ -1,4 +1,7 @@
 
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { LoginForm } from "@/components/LoginForm";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -6,6 +9,18 @@ import { AuthCard } from "@/components/AuthCard";
 import { Lock, ShieldCheck } from "lucide-react";
 
 export default function Login() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect authenticated users back to their original destination or dashboard
+  useEffect(() => {
+    if (user) {
+      const returnTo = localStorage.getItem("returnTo") || "/dashboard";
+      localStorage.removeItem("returnTo");
+      navigate(returnTo);
+    }
+  }, [user, navigate]);
+
   return (
     <div className="min-h-screen flex flex-col bg-neutral-900">
       <Header />

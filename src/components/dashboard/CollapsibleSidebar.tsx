@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -23,9 +24,11 @@ import {
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export function CollapsibleSidebar() {
   const location = useLocation();
+  const { user } = useAuth();
   const [defaultViewId, setDefaultViewId] = useState<string | null>(null);
 
   // Fetch the default panorama view ID for the "Analyze" link
@@ -53,8 +56,14 @@ export function CollapsibleSidebar() {
       }
     };
 
-    fetchDefaultViewId();
-  }, []);
+    // Only fetch when user is authenticated
+    if (user) {
+      fetchDefaultViewId();
+    }
+  }, [user]);
+
+  // Don't render the sidebar if the user is not authenticated
+  if (!user) return null;
 
   // Define the sidebar sections
   const sidebarSections = [
