@@ -20,6 +20,7 @@ import ContentDetail from "./pages/ContentDetail";
 import LuxuryTravel from "./pages/LuxuryTravel";
 import Advisors from "./pages/Advisors";
 import Network from "./pages/Network";
+import Panorama from "./pages/Panorama";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -41,6 +42,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/panorama"
+          element={
+            <ProtectedRoute>
+              <Panorama />
             </ProtectedRoute>
           }
         />

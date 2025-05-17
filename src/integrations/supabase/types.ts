@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           access_level: Database["public"]["Enums"]["access_level"]
           can_export: boolean | null
+          can_view_panorama: boolean | null
           created_at: string | null
           id: string
           network_id: string
@@ -22,6 +23,7 @@ export type Database = {
         Insert: {
           access_level?: Database["public"]["Enums"]["access_level"]
           can_export?: boolean | null
+          can_view_panorama?: boolean | null
           created_at?: string | null
           id?: string
           network_id: string
@@ -31,6 +33,7 @@ export type Database = {
         Update: {
           access_level?: Database["public"]["Enums"]["access_level"]
           can_export?: boolean | null
+          can_view_panorama?: boolean | null
           created_at?: string | null
           id?: string
           network_id?: string
@@ -92,6 +95,42 @@ export type Database = {
           description?: string
           id?: string
           name?: string
+        }
+        Relationships: []
+      }
+      asset_correlations: {
+        Row: {
+          asset_1_id: string
+          asset_2_id: string
+          correlation_coefficient: number | null
+          created_at: string | null
+          id: string
+          period_end: string
+          period_start: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          asset_1_id: string
+          asset_2_id: string
+          correlation_coefficient?: number | null
+          created_at?: string | null
+          id?: string
+          period_end: string
+          period_start: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          asset_1_id?: string
+          asset_2_id?: string
+          correlation_coefficient?: number | null
+          created_at?: string | null
+          id?: string
+          period_end?: string
+          period_start?: string
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -923,6 +962,39 @@ export type Database = {
         }
         Relationships: []
       }
+      panorama_views: {
+        Row: {
+          created_at: string | null
+          filters: Json | null
+          id: string
+          is_default: boolean | null
+          layout_config: Json | null
+          name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          filters?: Json | null
+          id?: string
+          is_default?: boolean | null
+          layout_config?: Json | null
+          name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          filters?: Json | null
+          id?: string
+          is_default?: boolean | null
+          layout_config?: Json | null
+          name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       partner_api_mappings: {
         Row: {
           id: string
@@ -1305,6 +1377,36 @@ export type Database = {
           created_at?: string | null
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wealth_snapshots: {
+        Row: {
+          asset_breakdown: Json
+          created_at: string | null
+          id: string
+          snapshot_date: string
+          total_assets: number
+          total_liabilities: number
+          user_id: string
+        }
+        Insert: {
+          asset_breakdown: Json
+          created_at?: string | null
+          id?: string
+          snapshot_date: string
+          total_assets: number
+          total_liabilities: number
+          user_id: string
+        }
+        Update: {
+          asset_breakdown?: Json
+          created_at?: string | null
+          id?: string
+          snapshot_date?: string
+          total_assets?: number
+          total_liabilities?: number
           user_id?: string
         }
         Relationships: []
