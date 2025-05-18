@@ -66,6 +66,15 @@ const NavItem: React.FC<NavItemProps> = ({ name, href, active }) => {
   );
 };
 
+// Custom hamburger menu icon component
+const MenuIcon = () => (
+  <div className="flex flex-col justify-center items-center space-y-1 ml-1.5 h-3 w-4">
+    <span className="block w-4 h-0.5 bg-current rounded-sm"></span>
+    <span className="block w-4 h-0.5 bg-current rounded-sm"></span>
+    <span className="block w-4 h-0.5 bg-current rounded-sm"></span>
+  </div>
+);
+
 interface DropdownNavMenuProps {
   className?: string;
 }
@@ -79,9 +88,10 @@ export const DropdownNavMenu: React.FC<DropdownNavMenuProps> = ({ className }) =
         {Object.values(navigationItems).map((category) => (
           <NavigationMenuItem key={category.title}>
             <NavigationMenuTrigger 
-              className="bg-transparent hover:bg-[#25293F]/80 text-neutral-300 hover:text-white px-4 py-2 text-sm"
+              className="bg-transparent hover:bg-[#25293F]/80 text-neutral-300 hover:text-white px-4 py-2 text-sm group flex items-center"
             >
-              {category.title}
+              <span className="mr-1">{category.title}</span>
+              <MenuIcon />
             </NavigationMenuTrigger>
             <NavigationMenuContent className="bg-[#1B1E2E] border border-navy-800 min-w-[220px]">
               <div className="p-2">
