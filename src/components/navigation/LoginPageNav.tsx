@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { navigationItems } from './DropdownNavMenu';
 import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem } from "@/components/ui/menubar";
 
-// Custom hamburger menu icon component
+// Custom hamburger menu icon component - IMPROVED for visibility
 const MenuIcon = () => (
-  <div className="flex flex-col justify-center items-center space-y-1 ml-1.5 h-3 w-4">
-    <span className="block w-4 h-0.5 bg-current rounded-sm"></span>
-    <span className="block w-4 h-0.5 bg-current rounded-sm"></span>
-    <span className="block w-4 h-0.5 bg-current rounded-sm"></span>
+  <div className="flex flex-col justify-center items-center space-y-1.5 ml-1.5 h-4 w-4">
+    <span className="block w-4 h-0.5 bg-white rounded-sm"></span>
+    <span className="block w-4 h-0.5 bg-white rounded-sm"></span>
+    <span className="block w-4 h-0.5 bg-white rounded-sm"></span>
   </div>
 );
 
@@ -20,7 +20,7 @@ export function LoginPageNav() {
       <Menubar className="border-0 bg-transparent">
         {Object.values(navigationItems).map((category) => (
           <MenubarMenu key={category.title}>
-            <MenubarTrigger className="text-neutral-300 hover:text-white hover:bg-[#25293F]/80 px-4 font-medium flex items-center">
+            <MenubarTrigger className="text-neutral-300 hover:text-white hover:bg-[#25293F]/80 px-4 font-medium flex items-center z-50">
               <span className="mr-1">{category.title}</span>
               <MenuIcon />
             </MenubarTrigger>

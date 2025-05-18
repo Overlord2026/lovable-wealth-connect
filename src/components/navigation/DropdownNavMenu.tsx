@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -66,12 +65,12 @@ const NavItem: React.FC<NavItemProps> = ({ name, href, active }) => {
   );
 };
 
-// Custom hamburger menu icon component
+// Custom hamburger menu icon component - IMPROVED for visibility
 const MenuIcon = () => (
-  <div className="flex flex-col justify-center items-center space-y-1 ml-1.5 h-3 w-4">
-    <span className="block w-4 h-0.5 bg-current rounded-sm"></span>
-    <span className="block w-4 h-0.5 bg-current rounded-sm"></span>
-    <span className="block w-4 h-0.5 bg-current rounded-sm"></span>
+  <div className="flex flex-col justify-center items-center space-y-1.5 ml-1.5 h-4 w-4">
+    <span className="block w-4 h-0.5 bg-white rounded-sm"></span>
+    <span className="block w-4 h-0.5 bg-white rounded-sm"></span>
+    <span className="block w-4 h-0.5 bg-white rounded-sm"></span>
   </div>
 );
 
@@ -88,7 +87,7 @@ export const DropdownNavMenu: React.FC<DropdownNavMenuProps> = ({ className }) =
         {Object.values(navigationItems).map((category) => (
           <NavigationMenuItem key={category.title}>
             <NavigationMenuTrigger 
-              className="bg-transparent hover:bg-[#25293F]/80 text-neutral-300 hover:text-white px-4 py-2 text-sm group flex items-center"
+              className="bg-transparent hover:bg-[#25293F]/80 text-neutral-300 hover:text-white px-4 py-2 text-sm group flex items-center z-50"
             >
               <span className="mr-1">{category.title}</span>
               <MenuIcon />
