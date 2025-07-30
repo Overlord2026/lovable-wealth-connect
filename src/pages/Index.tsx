@@ -2,7 +2,7 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { FeatureSection } from "@/components/FeatureSection";
-import { AdvisorSection } from "@/components/AdvisorSection";
+import { AdvisorSection } from "@/modules/marketplace/components/advisors/AdvisorSection";
 import { TestimonialSection } from "@/components/TestimonialSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";

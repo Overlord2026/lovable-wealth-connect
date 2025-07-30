@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { VerificationBanner } from './VerificationBanner';
-import { useProfessionalStatus } from '@/hooks/useProfessionalStatus';
+import { useProfessionalStatus } from '@/modules/marketplace/hooks/useProfessionalStatus';
 
 interface DashboardContentProps {
   children: React.ReactNode;

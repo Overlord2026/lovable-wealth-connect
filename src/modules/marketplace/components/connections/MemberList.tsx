@@ -19,7 +19,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { AccessLevel } from "@/types/network";
+import { AccessLevel } from "../../types/network";
 
 interface MemberListProps {
   members: any[];

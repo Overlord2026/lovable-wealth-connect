@@ -13,13 +13,11 @@ import AiAdvisor from "./pages/AiAdvisor";
 import Profile from "./pages/Profile";
 import Loans from "./pages/Loans";
 import Payments from "./pages/Payments";
-import VerificationPending from "./pages/VerificationPending";
+import { VerificationPending, Advisors, Network } from "@/modules/marketplace/pages";
 import NotFound from "./pages/NotFound";
 import Education from "./pages/Education";
 import ContentDetail from "./pages/ContentDetail";
 import LuxuryTravel from "./pages/LuxuryTravel";
-import Advisors from "./pages/Advisors";
-import Network from "./pages/Network";
 import Panorama from "./pages/Panorama";
 import PanoramaAnalyze from "./pages/PanoramaAnalyze";
 

@@ -7,7 +7,7 @@ import { MemberInvite } from "./MemberInvite";
 import { NetworkTabs } from "./NetworkTabs";
 import { PendingInvites } from "./PendingInvites";
 import { Users, UserPlus, Mail } from "lucide-react";
-import { AccessLevel } from "@/types/network";
+import { AccessLevel } from "../../types/network";
 
 interface NetworkManagerProps {
   user: { id: string } | null;

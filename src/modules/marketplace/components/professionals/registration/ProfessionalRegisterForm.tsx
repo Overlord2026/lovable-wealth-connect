@@ -5,15 +5,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { toast } from "@/components/ui/sonner";
-import { formSchema, FormValues } from "./professional-register/types";
-import { BasicInfoFields } from "./professional-register/BasicInfoFields";
-import { ProfessionalDetailsFields } from "./professional-register/ProfessionalDetailsFields";
-import { ExpertiseFields } from "./professional-register/ExpertiseFields";
-import { CertificationFields } from "./professional-register/CertificationFields";
-import { BioField } from "./professional-register/BioField";
-import { TermsField } from "./professional-register/TermsField";
-import { SubmitButton } from "./professional-register/SubmitButton";
-import { ComplianceFields } from "./professional-register/ComplianceFields";
+import { formSchema, FormValues } from "./types";
+import { BasicInfoFields } from "./BasicInfoFields";
+import { ProfessionalDetailsFields } from "./ProfessionalDetailsFields";
+import { ExpertiseFields } from "./ExpertiseFields";
+import { CertificationFields } from "./CertificationFields";
+import { BioField } from "./BioField";
+import { TermsField } from "./TermsField";
+import { SubmitButton } from "./SubmitButton";
+import { ComplianceFields } from "./ComplianceFields";
 import { supabase } from "@/integrations/supabase/client";
 
 export function ProfessionalRegisterForm() {

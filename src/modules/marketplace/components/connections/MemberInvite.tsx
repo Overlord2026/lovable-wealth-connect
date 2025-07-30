@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { v4 as uuidv4 } from "uuid";
 import { UserPlus } from "lucide-react";
-import { AccessLevel } from "@/types/network";
+import { AccessLevel } from "../../types/network";
 
 interface MemberInviteProps {
   userId: string;

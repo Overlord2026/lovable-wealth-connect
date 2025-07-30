@@ -1,7 +1,7 @@
 
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { AdvisorSection } from "@/components/AdvisorSection";
+import { AdvisorSection } from "../components/advisors/AdvisorSection";
 
 const Advisors = () => {
   return (

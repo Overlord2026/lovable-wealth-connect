@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { NetworkManager } from "@/components/network/NetworkManager";
+import { NetworkManager } from "../components/connections/NetworkManager";
 import { useAuth } from "@/contexts/AuthContext";
 
 const Network = () => {

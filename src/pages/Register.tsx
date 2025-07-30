@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { RegisterForm } from "@/components/RegisterForm";
-import { ProfessionalRegisterForm } from "@/components/ProfessionalRegisterForm";
+import { ProfessionalRegisterForm } from "@/modules/marketplace/components/professionals/registration/ProfessionalRegisterForm";
 import { Footer } from "@/components/Footer";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { UserCheck, Briefcase } from "lucide-react";
