@@ -3,12 +3,19 @@ export interface Advisor {
   id: string;
   name: string;
   title: string;
+  firm: string;
   specialties: string[];
-  experience: string;
-  location: string;
+  region: string;
+  experience: number;
+  yearsExperience: number;
   rating: number;
-  image?: string;
-  bio?: string;
+  reviewCount: number;
   verified: boolean;
-  credentials: string[];
+  isVerified: boolean;
+  bio: string;
+  imageUrl?: string;
+  availableNow?: boolean;
+  location?: string;
+  credentials?: string[];
+  image?: string;
 }
